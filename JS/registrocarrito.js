@@ -115,8 +115,10 @@ enviar.addEventListener("click",(e)=>{
             icono.classList.remove("formulario__grupo-correcto");
         });
         document.getElementById("formulario__mensaje").classList.remove("formulario__mensaje-activo");
-        createUser(nom,user,pass,ed,email,tel);
-        formulario.reset();
+        ConsultarUsuario(nom,user,pass,ed,email,tel);
+        //createUser(nom,user,pass,ed,email,tel);
+        
+        //formulario.reset();
     }
     else{
         if(!campos.usuario){
@@ -167,8 +169,6 @@ enviar.addEventListener("click",(e)=>{
 
 cancelar.addEventListener("click", async () =>{
     //formulario.reset();
-    const querySnapshot = await ConsultarUsuario();
-    console.log(querySnapshot);
-    alert("");
+
 });
 

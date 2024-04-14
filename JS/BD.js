@@ -62,7 +62,7 @@ export async function createUser(nom,usr,pass,ed,email,tel) {
         alert('Usuario registrado exitosamente');
     } catch (error) {
         console.error('Error al registrar el usuario:', error.message);
-        alert('Error al registrar el usuario:');
+        alert('Error al registrar el usuario: Correo electrónico en uso');
     }
 }
 
@@ -191,4 +191,15 @@ const db = getFirestore(app);
     }
   }*/
 
-  export const ConsultarUsuario = () => getDocs(collection(db, "Usuarios"))
+  export const ConsultarUsuario = async (nom,user,pass,ed,email,tel) => {
+    const querySnapshot = await getDocs(collection(db, "Usuarios"), where("Usuario", "==", user));
+  
+    if (!querySnapshot.empty) {
+      alert("El usuario existe:");
+      querySnapshot.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data());
+      });
+    } else {
+      createUser(nom,user,pass,ed,email,tel)
+    }
+  }
