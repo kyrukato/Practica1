@@ -1,0 +1,45 @@
+h1{
+    background: #efe891;
+    text-align: center;
+}
+
+body{
+    background: #f6f6f6;
+}
+
+section .info{
+    float: left;
+    background: #3f52e3;
+    margin: 5px;
+    margin-right: 10px;
+    padding: 3px;
+    width: 49%;
+}
+
+.imagen
+{
+    float:left;
+    padding: 3px;
+}
+
+.itlm{
+    border: 5px solid green; 
+    border-bottom-left-radius: 40px;
+    padding: 10px;
+}
+
+.uas{
+    border: 5px double gold;
+    text-align: center;
+    border-top-right-radius: 30px;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    background: url(/Practica1/Imagenes/fondop1per.avif);
+}

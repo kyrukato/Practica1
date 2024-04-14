@@ -1,0 +1,49 @@
+.item{
+    color: white;
+    text-decoration-color: white;
+}
+
+.iconos{
+    text-align: right;
+    float: right;
+    padding: 10px;
+}
+
+.colorfondo1{
+    background: red;
+}
+
+.colorfondo2{
+    background: blue;
+}
+
+.colorfondo3{
+    background: green;
+}
+
+.colorbarra1{
+    background: gray;
+}
+
+.colorbarra2{
+    background: black;
+    color: white;
+}
+
+.colorbarra3{
+    background: brown;
+}
+
+.formulario{
+    margin: 10px;
+}
+
+.configuracion{
+    margin: 10px;
+    text-align: center;
+}
+
+.grupobtn{
+    margin: 10px;
+    text-align: center;
+}

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/Style/diseno.css">
+    <link rel="stylesheet" href="/Style/carrito.css">
+    <link href= "https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body id="body">
+    <nav class="navbar" id="barranav">
+        <div class="container">
+            <a href="/iniciocarrito.html"><img src="/Imagenes/logo.jpg" alt="Logo" class="logo" ></a>
+            <span class="titulo" id="titulo">CARRITO</span>
+            <div class="iconos">
+                <a class="carrito" href="carrito.html"><i class="carrito fa-solid fa-cart-shopping"></i></a>
+                <i class="fa-regular fa-user"></i>
+                <a class="carrito" href="configcarrito.html"><i class="fa-solid fa-gear"></i></a>
+            </div>
+        </div>
+    </nav>
+    <form action="" class="contenedor">
+        
+
+        <div class="grupo_producto" id="grupo_producto">
+            <img src="/Imagenes/playeralsmnegra.png" alt="Logo" class="imagen_producto" >
+            <div class="texto">
+                <p class="compra">PLAYERA LSM</p>
+                <p class="compra">COLOR: NEGRO <br> TALLAS: CH-XL</p>
+                <P class="total" id="total">COSTO: $400.00</P>
+                
+            </div>
+            <div class="cantidad">
+                <label for="cant" class="encabezado">CANTIDAD</label>
+                <input type="number" class="c" id="pzp1" min="0" value="1">
+                <label for="as" class="encabezado">SUBTOTAL</label>
+                <input type="text" readonly="yes" class="subt" id="sub1">
+            </div>
+        </div>
+
+        <div class="grupo_producto" id="grupo_producto2">
+            <img src="/Imagenes/tazalsm.png" alt="Logo" class="imagen_producto" >
+            <div class="texto">
+                <p class="compra">TAZA LSM</p>
+                <p class="compra">TAMAÑO: 16 Oz</p>
+                <P class="total" id="total">COSTO: $400.00</P>
+                
+            </div>
+            <div class="cantidad">
+                <label for="cant">CANTIDAD</label>
+                <input type="number" class="c" id="pzp2" min="0" value="1">
+                <label for="as">SUBTOTAL</label>
+                <input type="text" readonly="yes" class="subt" id="sub2">
+            </div>
+        </div>
+
+        <div class="grupo_producto" id="grupo_producto3">
+            <img src="/Imagenes/cursolsmcesum.png" alt="Logo" class="imagen_producto" >
+            <div class="texto">
+                <p class="compra">CURLO LSM CESSUM</p>
+                <p class="compra">NIVELES: BASICO-INTERMEDIO</p>
+                <P class="total" id="total">COSTO: $400.00</P>
+                
+            </div>
+            <div class="cantidad">
+                <label for="cant">CANTIDAD</label>
+                <input type="number" class="c" id="pzp3" min="0" value="1">
+                <label for="as">SUBTOTAL</label>
+                <input type="text" readonly="yes" class="subt" id="sub3">
+            </div>
+        </div>
+
+        <div class="grupo_producto" id="grupo_producto4">
+            <img src="/Imagenes/librolsm.png" alt="Logo" class="imagen_producto" >
+            <div class="texto">
+                <p class="compra">LIBRO LSM</p>
+                <p class="compra">NIVEL: INTERMEDIO</p>
+                <P class="total" id="total">COSTO: $400.00</P>
+                
+            </div>
+            <div class="cantidad">
+                <label for="cant">CANTIDAD</label>
+                <input type="number" class="c" id="pzp4" min="0" value="1">
+                <label for="as">SUBTOTAL</label>
+                <input type="text" readonly="yes" class="subt" id="sub4">
+            </div>
+        </div>
+
+        <div class="grupo_producto" id="grupo_producto5">
+            <img src="/Imagenes/cursolsmunjure.png" alt="Logo" class="imagen_producto" >
+            <div class="texto">
+                <p class="compra">CURSO LSM injuRe</p>
+                <p class="compra">NIVELES: BASICO-AVANZADO</p>
+                <P class="total" id="total">COSTO: $400.00</P>
+                
+            </div>
+            <div class="cantidad">
+                <label for="cant">CANTIDAD</label>
+                <input type="number" class="c" id="pzp5" min="0" value="1">
+                <label for="as">SUBTOTAL</label>
+                <input type="text" readonly="yes" class="subt" id="sub5">
+            </div>
+        </div>
+
+        <div class="grupo_producto" id="grupo_producto6">
+            <img src="/Imagenes/librodigaloenseñas.png" alt="Logo" class="imagen_producto" >
+            <div class="texto">
+                <p class="compra">LIBRO DÍGALO EN SEÑAS</p>
+                <p class="compra">NIVEL: INTERMEDIO</p>
+                <P class="total" id="total">COSTO: $400.00</P>
+                
+            </div>
+            <div class="cantidad">
+                <label for="cant">CANTIDAD</label>
+                <input type="number" class="c" id="pzp6" min="0" value="1">
+                <label for="as">SUBTOTAL</label>
+                <input type="text" readonly="yes" class="subt" id="sub6">
+            </div>
+        </div>
+
+        <div class="grupo" id="grupo__usuario">
+            <p class="compra">TOTAL DE LA COMPRA</p>
+            <P class="total" id="totalc">$0.00</P>
+            <div class="boton">
+                <button type="submit" class="btn_aceptar" id="btn_aceptar">ACEPTAR</button><br>
+                <button type="submit" class="btn_cancelar" id="btn_cancelar">CANCELAR</button>
+            </div>
+        </div>
+
+    </form>
+    <script src="/JS/carrito.js"></script>
+    <script src="https://kit.fontawesome.com/cf390a3f4e.js" crossorigin="anonymous"></script>
+</body>
+</html>

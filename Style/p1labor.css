@@ -1,0 +1,16 @@
+h1{
+    background: #efe891;
+    text-align: center;
+}
+
+article{
+    background: #3f52e3;
+    margin: 5px;
+    width: 40%;
+}
+
+.foto{
+    border-radius: 10%;
+    border: 3px solid red;
+}
+

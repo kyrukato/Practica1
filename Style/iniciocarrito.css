@@ -1,0 +1,85 @@
+.iconos{
+    text-align: right;
+    float: right;
+    padding: 10px;
+}
+
+
+.grupo{
+    grid-column: 1;
+}
+
+.imagen{
+    text-align: center;
+}
+
+.grupo2{
+    grid-column: 2;
+}
+
+.grupo3{
+    grid-column: 3;
+}
+
+.grupo4{
+    grid-column: 1;
+}
+
+.grupo5{
+    grid-column: 2;
+}
+.grupo6{
+    grid-column: 3;
+}
+
+.grupo, .grupo2, .grupo3, .grupo4, .grupo5, .grupo6{
+    background: #9B906F;
+    margin: 5px;
+    border-radius: 10px;
+}
+
+.logo2{
+    position: relative;
+    width: 30%;
+    margin: 5PX;
+}
+
+.buscador{
+    background: #6F5B40;
+    width: 50%;
+}
+
+.contenedor{
+    display: grid;
+    background: #B7883E;
+    margin: 10px;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 10px;
+}
+
+.link_carrito{
+    color: black;
+    float: right;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.info_articulo{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.sup{
+    margin: 15px;
+    text-align: center;
+}
+
+.buscar__lupita{
+    position: relative;
+    z-index: 100;
+}
+
+.item{
+    color: white;
+    text-decoration-color: white;
+}

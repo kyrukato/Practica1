@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto</title>
+    <link rel="stylesheet" href="/Style/diseno.css">
+    <link rel="stylesheet" href="/Style/infocarrito.css">
+    <link href= "https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="/logincarrito.html"><img src="/Imagenes/logo.jpg" alt="Logo" class="logo" ></a>
+            <span class="titulo">CONTACTANOS</span>
+        </div>
+    </nav>
+    <p class="mensaje">TU OPINIÓN ES IMPORTANTE PARA NOSOTROS, POR ELLO QUEREMOS ESCUCHARTE</p>
+    <form action="" class="formulario">
+        <div class="formulario__grupo formulario__gruponombre" id="grupo__nombre">
+            <label for="nombre" class="formulario__label">NOMBRE</label>
+            <div class="formulario__grupo-input">
+                <input type="text" class="formulario__input" name="nombre" id="nombre" placeholder="Nombre Apellido">
+                <i class="formulario__validacion-estado fa-regular fa-circle-xmark"></i>
+            </div>
+            <p class="formulario__input-error">El nombre no puede contener números ni caracteres especiales</p>
+        </div>
+        <div class="formulario__grupo formulario__grupocorreo" id="grupo__correo">
+            <label for="correo" class="formulario__label">CORREO ELECTRÓNICO</label>
+            <div class="formulario__grupo-input">
+                <input type="email" class="formulario__input" name="correo" id="correo" placeholder="ejemplo@ejemplo.com">
+                <i class="formulario__validacion-estado fa-regular fa-circle-xmark"></i>
+            </div>
+            <p class="formulario__input-error">El correo solo puede contener letras, números, guión bajo, @ y punto</p>
+        </div>
+        <div class="formulario__grupo formulario__grupoc" id="grupo__comentario">
+            <label for="comentario" class="formulario__label">COMENTARIO</label>
+            <div class="formulario__grupo-input">
+                <input type="text" class="formulario__input" name="comentario" id="comentario" placeholder="(0/150)">
+                <i class="formulario__validacion-estado fa-regular fa-circle-xmark"></i>
+            </div>
+            <p class="formulario__input-error">NO SE PUEDE MANDAR UN MENSAJE VACIO</p>
+        </div>
+        <div class="formulario__grupobtn">
+            <button type="submit" class="formulario__btn" id="btnCancelar">CANCELAR</button>
+            <button type="submit" class="formulario__btn" id="btnEnviar">INGRESAR</button>
+        </div>
+    </form>
+    <footer>
+        <p>© TODOS LOS DERECHOS RESERVADOS PARA SOFTLSM S.A.</p>
+    </footer>
+</body>
+</html>

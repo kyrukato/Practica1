@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/Style/pjs.css">
+</head>
+<body>
+    <header>
+        <h1>
+            Mi contenedor de tareas
+        </h1>
+    </header>
+    <section>
+        <section>
+            <article class="lista">
+                <label
+                    >Seleccione una tarea<input list="tareas" id="lista"
+                /></label>
+                <datalist id="tareas" class="datal">
+                <option value="Tarea 1" id="e1" class="t1">Etiqueta de Información</option>
+                <option value="Proyecto 2" id="e2">Entregar hoy</option>
+                <option value="Examen 3" id="e3">Etiqueta</option>
+                </datalist>
+            </article>
+            <article class="seleccionar">
+                <label
+                >Selecione una tarea
+                </label>
+                <select id="select" class="datal">
+                    <option value="Descripcion de la tarea 1" class="">Tarea 1</option>
+                    <option value="Descripcion de la tarea 2" selected>Tarea 2</option>
+                    <option value="Descripcion de la tarea 3">Tarea 3</option>
+                </select>
+            </article>
+        </section>
+        <section>
+            <aside>
+                <textarea name="textarea" rows="10" cols="50" id="texto" readonly="true" ></textarea>
+            </aside>
+        </section>
+        <script src="/JS/elementos.js"></script>
+    </section>
+</body>
+</html>

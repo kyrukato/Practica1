@@ -1,0 +1,26 @@
+.principal .texto{
+    float: left;
+    width: 45%;
+    background-color: #3f52e3;
+}
+
+h1{
+    background: #efe891;
+}
+
+aside{
+    float: right;
+    width: 45%;
+}
+
+.foto{
+    box-sizing: border-box;
+    border: 3px double #3f52e3;
+    padding: 3px;
+    border-top-left-radius: 50px;
+}
+
+body
+{
+    background: url(/Practica1/Imagenes/fondop1per.avif);
+}
