@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/Style/diseno.css">
+    <link rel="stylesheet" href="/Style/registrocarrito.css">
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <link href= "https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>Registro</title>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="/Carrito/loginv3.html"><img src="/Imagenes/logo.jpg" alt="Logo" class="logo" ></a>
+            <span class="titulo">REGISTRARSE</span>
+        </div>
+    </nav>
+    <main>
+        <form action="" class="formulario" id="formulario">
+            <div class="formulario__grupo" id="grupo__usuario">
+                <label for="usuario" class="formulario__label">USUARIO</label>
+                <div class="formulario__grupo-input">
+                    <input type="text" class="formulario__input" name="usuario" id="usuario" placeholder="usuario123">
+                    <i class="formulario__validacion-estado fa-regular fa-circle-xmark"></i>
+                </div>
+                <p class="formulario__input-error">El nombre de usuario no puede contener espacios, debe tener solo letras y números y al menos 5 caracteres</p>
+            </div>
+
+            <div class="formulario__grupo" id="grupo__nombre">
+                <label for="nombre" class="formulario__label">NOMBRE</label>
+                <div class="formulario__grupo-input">
+                    <input type="text" class="formulario__input" name="nombre" id="nombre" placeholder="Nombre Apellido">
+                    <i class="formulario__validacion-estado fa-regular fa-circle-xmark"></i>
+                </div>
+                <p class="formulario__input-error">El nombre no puede contener números ni caracteres especiales</p>
+            </div>
+
+            <div class="formulario__grupo" id="grupo__password">
+                <label for="password" class="formulario__label">CONTRASEÑA</label>
+                <div class="formulario__grupo-input">
+                    <input type="password" class="formulario__input" name="password" id="password" >
+                    <i class="formulario__validacion-estado fa-regular fa-circle-xmark"></i>
+                </div>
+                <p class="formulario__input-error">La contraseña debe de contener letras, al menos un número, al menos un símbolo especial y contener al menos 8 caracteres</p>
+            </div>
+
+            <div class="formulario__grupo" id="grupo__password2">
+                <label for="password2" class="formulario__label">CONFIRMAR CONTRASEÑA</label>
+                <div class="formulario__grupo-input">
+                    <input type="password" class="formulario__input" name="password2" id="password2" >
+                    <i class="formulario__validacion-estado fa-regular fa-circle-xmark"></i>
+                </div>
+                <p class="formulario__input-error">Las contraseñas no coinciden</p>
+            </div>
+
+            <div class="formulario__grupo" id="grupo__correo">
+                <label for="correo" class="formulario__label">CORREO ELECTRÓNICO</label>
+                <div class="formulario__grupo-input">
+                    <input type="email" class="formulario__input" name="correo" id="correo" placeholder="ejemplo@ejemplo.com">
+                    <i class="formulario__validacion-estado fa-regular fa-circle-xmark"></i>
+                </div>
+                <p class="formulario__input-error">El correo solo puede contener letras, números, guión bajo, @ y punto</p>
+            </div>
+
+            <div class="formulario__grupo" id="grupo__telefono">
+                <label for="telefono" class="formulario__label">TELÉFONO</label>
+                <div class="formulario__grupo-input">
+                    <input type="text" class="formulario__input" name="telefono" id="telefono" placeholder="1234567890">
+                    <i class="formulario__validacion-estado fa-regular fa-circle-xmark"></i>
+                </div>
+                <p class="formulario__input-error">El teléfono solo puede contener números y una longitud de 10 dígitos</p>
+            </div>
+
+            <div class="formulario__grupo" id="grupo__edad">
+                <label for="edad" class="formulario__label">EDAD</label>
+                <div class="formulario__grupo-input">
+                    <input type="text" class="formulario__input" name="edad" id="edad">
+                    <i class="formulario__validacion-estado fa-regular fa-circle-xmark"></i>
+                </div>
+                <p class="formulario__input-error">Solo se aceptan edades de 0 a 100 años</p>
+            </div>
+
+            <div class="formulario__mensaje" id="formulario__mensaje">
+                <p><i class="fas fa-exclamation-triangle"></i><b>Error:</b> Favor de rellenar el furmulario correctamente</p>
+            </div>
+            <div class="formulario__grupo formulario__grupobtn">
+                <button type="button" class="formulario__btn" id="btnCancelar">CANCELAR</button>
+                <button type="button" class="formulario__btn" id="btnEnviar">ACEPTAR</button>
+            </div>
+        </form>
+        
+    </main>
+    <script src="/JS/registrov3.js" type="module"></script>
+    <script src="https://kit.fontawesome.com/cf390a3f4e.js" crossorigin="anonymous"></script>
+</body>
+</html>

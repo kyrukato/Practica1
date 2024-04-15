@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CARRITO DE COMPRAS</title>
+    <link rel="stylesheet" href="/Style/diseno.css">
+    <link rel="stylesheet" href="/Style/logincarrito.css">
+    <link href= "https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <img src="/Imagenes/logo.jpg" alt="Logo" class="logo">
+            <span class="titulo">BIENVENIDO</span>
+        </div>
+    </nav>
+    <form action="" class="formulario">
+        <div class="formulario__grupo" id="grupo__usuario">
+            <label for="usuario" class="formulario__label">USUARIO</label>
+            <div class="formulario__grupo-input">
+                <input type="text" class="formulario__input" name="usuario" id="usuario" placeholder="usuario123">
+            </div>
+            <p class="formulario__input-error">USUARIO NO REGISTRADO</p>
+        </div>
+        <div class="formulario__grupo" id="grupo__password">
+            <label for="password" class="formulario__label">CONTRASEÑA</label>
+            <div class="formulario__grupo-input">
+                <input type="password" class="formulario__input" name="password" id="password" >
+                <i class="formulario__validacion-estado fa-regular fa-circle-xmark"></i>
+            </div>
+            <p class="formulario__input-error">CONTRASEÑA INCORRECTA</p>
+        </div>
+        <div class="formulario__grupo formulario__grupobtn">
+                <button type="button" class="formulario__btn" id="btnCancelar">CANCELAR</button>
+                <button type="button" class="formulario__btn" id="btnEnviar">INGRESAR</button>
+        </div>
+        <div class = redireccion>
+            <a href="/Carrito/registrov3.html">¿NO TIENES UNA CUENTA? REGISTRATE </a><br><br>
+            <a href="/Carrito/infov3.html">¿TIENES ALGUNA DUDA? CONTACTANOS </a>
+        </div>
+        <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
+        <script src="/JS/loginv3.js" type="module"></script>
+    </form>
+</body>
+</html>

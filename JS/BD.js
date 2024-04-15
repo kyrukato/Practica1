@@ -66,6 +66,7 @@ export async function createUser(nom,usr,pass,ed,email,tel) {
     }
 }
 
+//Función para iniciar sesión con autenticación de Firestore
 export const loginUser = async (email, password) => {
     try {
         // Configura la persistencia de sesión para mantener la sesión hasta que se cierre explícitamente
@@ -161,23 +162,24 @@ export async function updateCartFromFirestore() {
   }
 // Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
+//Función para validad que un usuario y/o el correo no estén registrados previamente
   export const ConsultarUsuario = async (nom,user,pass,ed,email,tel) => {
+    //Se crea el query y se ejecuta
     const querySnapshot = await getDocs(collection(db, "Usuarios"), where("Usuario", "==", user));
-  
+  //Si la consulta no esta vacía significa que ya está registrado el usuario
     if (!querySnapshot.empty) {
-        /*querySnapshot.forEach((doc) => {
-        console.log(doc.id, " => ", doc.data());
-      });*/
       const doc = querySnapshot.docs[0]; // Obtener el primer documento
       alert("El usuario ya está registrado:");
     } else {
-      createUser(nom,user,pass,ed,email,tel)
+      createUser(nom,user,pass,ed,email,tel) //Si no está registrado el usuario se manda llamar la función para crearlo
     }
   }
 
 //Función para Obtener el correo del usuario para logearse
 export async function ObtenerCorreo(user,pass){
+  //Creamos el query y lo ejecutamos
   const querySnapshot = await getDocs(collection(db, "Usuarios"), where("Usuario", "==", user));
+  
   if (!querySnapshot.empty) {
     const doc = querySnapshot.docs[0]; // Obtener el primer documento
     loginUser(doc.data().Correo,pass);
