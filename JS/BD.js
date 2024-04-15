@@ -77,7 +77,7 @@ export const loginUser = async (email, password) => {
         console.log("Inicio de sesión:", userCredential.user.email);
         alert("Inicio de sesión correcto");
         // Redirige al usuario a la página de productos
-        window.location.href = '/productos.html';
+        window.location.replace("/iniciocarrito.html");
         // Llama a la función para cargar el carrito del usuario
     } catch (error) {
         // Hubo un error al iniciar sesión
@@ -161,45 +161,27 @@ export async function updateCartFromFirestore() {
   }
 // Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
- /* //Función para consultar si el usuario ya existe
-  export async function ConsultarUsuario(campo){
-    try{
-      /*db.collection('Usuarios').get().then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          console.log("${doc.id} => ${doc.data()}");
-        });
-      })*/
-      /*alert("entro");
-      const docRef = doc(db, "Usuarios", campo);
-      const docSnap = await getDoc(docRef)
-      if(docSnap.exists()){
-        alert("Datos ", docSnap.data());
-        console.log("Datos ", docSnap.data());
-      }
-      else{
-        alert("Datos ", docSnap.data());
-        console.log("no existe");
-      }*/
-      //getDoc(collection(db,'Usuarios'));
-      /*querySnapshot.foreEach(doc => {
-        console.log(doc);
-      })
-      console.log(querySnapshot);
-    } catch(error){
-      console.log("Error al cargar la información desde Firestore: ",error.message)
-      alert("Error al conectarse al servidor");
-    }
-  }*/
-
   export const ConsultarUsuario = async (nom,user,pass,ed,email,tel) => {
     const querySnapshot = await getDocs(collection(db, "Usuarios"), where("Usuario", "==", user));
   
     if (!querySnapshot.empty) {
-      alert("El usuario existe:");
-      querySnapshot.forEach((doc) => {
+        /*querySnapshot.forEach((doc) => {
         console.log(doc.id, " => ", doc.data());
-      });
+      });*/
+      const doc = querySnapshot.docs[0]; // Obtener el primer documento
+      alert("El usuario ya está registrado:");
     } else {
       createUser(nom,user,pass,ed,email,tel)
     }
   }
+
+//Función para Obtener el correo del usuario para logearse
+export async function ObtenerCorreo(user,pass){
+  const querySnapshot = await getDocs(collection(db, "Usuarios"), where("Usuario", "==", user));
+  if (!querySnapshot.empty) {
+    const doc = querySnapshot.docs[0]; // Obtener el primer documento
+    loginUser(doc.data().Correo,pass);
+  } else {
+    alert('Usuario no registrado');
+  }
+}

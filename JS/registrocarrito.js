@@ -1,4 +1,4 @@
-import { createUser, ConsultarUsuario } from "./BD.js";
+import { ObtenerCorreo, ConsultarUsuario } from "./BD.js";
 const formulario = document.getElementById("formulario");
 const inputs = document.querySelectorAll("#formulario input");
 const cancelar = document.getElementById("btnCancelar");
@@ -116,9 +116,6 @@ enviar.addEventListener("click",(e)=>{
         });
         document.getElementById("formulario__mensaje").classList.remove("formulario__mensaje-activo");
         ConsultarUsuario(nom,user,pass,ed,email,tel);
-        //createUser(nom,user,pass,ed,email,tel);
-        
-        //formulario.reset();
     }
     else{
         if(!campos.usuario){
@@ -168,7 +165,6 @@ enviar.addEventListener("click",(e)=>{
 });
 
 cancelar.addEventListener("click", async () =>{
-    //formulario.reset();
-
+    window.location.replace("/logincarrito.html");
 });
 
