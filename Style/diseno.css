@@ -32,3 +32,14 @@ body {
     left: 20px;
     position:absolute;
 }
+
+.iconos{
+    text-align: right;
+    float: right;
+    padding: 10px;
+}
+
+.item{
+    color: white;
+    text-decoration-color: white;
+}
