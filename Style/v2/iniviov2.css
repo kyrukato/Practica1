@@ -1,0 +1,78 @@
+.iconos{
+    text-align: right;
+    float: right;
+    padding: 10px;
+}
+
+.imagen{
+    text-align: center;
+}
+
+
+.grupo{
+    background: #9B906F;
+    margin: 5px;
+    border-radius: 10px;
+}
+
+.logo2{
+    position: relative;
+    width: 30%;
+    margin: 5PX;
+}
+
+.prod{
+    width: 50%;
+}
+
+.buscador{
+    background: #6F5B40;
+    width: 50%;
+}
+
+.contenedor{
+    display: grid;
+    background: #B7883E;
+    margin: 10px;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 10px;
+}
+
+.link_carrito{
+    color: black;
+    float: right;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.info_articulo{
+    margin-left: 10px;
+    margin-right: 10px;
+    color: black;
+}
+
+.sup{
+    margin: 15px;
+    text-align: center;
+}
+
+.buscar__lupita{
+    position: relative;
+    z-index: 100;
+}
+
+.item{
+    color: white;
+    text-decoration-color: white;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+button{
+    background: #9B906F;
+    border: none;
+    cursor: pointer;
+}

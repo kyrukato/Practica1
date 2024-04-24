@@ -1,5 +1,6 @@
   // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+import { AgregarProducto } from "./cambiosbdv2.js";
   // Add Firebase products that you want to use
 import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, browserLocalPersistence, setPersistence } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js'
 import { getFirestore, collection, setDoc, getDoc, doc, where, query, getDocs} from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js'
@@ -18,7 +19,8 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from 'https://www.gstati
         appId: "1:736589963023:web:c8ec2ad3b85c72a77ba87a",
         measurementId: "G-VDX3EVQR7R"
     };
-
+    const formulario = document.getElementById("formulario");
+    const inputs = document.querySelectorAll("#formulario input");
     // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
@@ -30,24 +32,20 @@ const storage = getStorage(app)
 const btnEnviar = document.getElementById("boton");
 const expresiones = {
 	nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
-  descripcion: /^[a-zA-ZÀ-ÿ\s]{1,400}$/, // Letras y espacios, pueden llevar acentos.
 	cantidad: /^\d+(\.\d+)?$/, // 7 a 14 numeros.
   precio: /^\d+(\.\d+)?$/
 }
 const campos = {
   nombre: false,
-  descripcion:false,
   cantidad: false,
-  precio: false
+  precio: false,
+  imagen: false
 }
 
 const validarformulario = (e) =>{ 
   switch(e.target.name){
       case "nombre":
           validarCampo(expresiones.nombre, e.target, "nombre");
-      break;
-      case "descripcion":
-          validarCampo(expresiones.descripcion, e.target, "descripcion"); 
       break;
       case "cantidad":
           validarCampo(expresiones.cantidad, e.target, "cantidad");
@@ -82,14 +80,14 @@ inputs.forEach((input)=>{
   input.addEventListener("blur",validarformulario);
 });
 
-btnEnviar.addEventListener("click", async () =>{
+btnEnviar.addEventListener("click", async (e) =>{
   e.preventDefault();
-    if(campos.nombre && campos.cantidad && campos.precio && campos.descripcion ){
+    if(campos.nombre && campos.cantidad && campos.precio && campos.imagen){
         document.querySelectorAll(".formulario__grupo-correcto").forEach((icono) =>{
             icono.classList.remove("formulario__grupo-correcto");
         });
-        document.getElementById("formulario__mensaje").classList.remove("formulario__mensaje-activo");
         subirProducto();
+        
     }
     else{
         if(!campos.nombre){
@@ -106,13 +104,6 @@ btnEnviar.addEventListener("click", async () =>{
             document.querySelector(`#grupo__cantidad i`).classList.add("fa-circle-xmark");
             document.querySelector(`#grupo__cantidad .formulario__input-error`).classList.add("formulario__input-error-activo");
         }
-        if(!campos.descripcion){
-            document.getElementById(`grupo__descripcion`).classList.add("formulario__grupo-incorrecto");
-            document.getElementById(`grupo__descripcion`).classList.remove("formulario__grupo-correcto");
-            document.querySelector(`#grupo__descripcion i`).classList.remove("fa-check-circle");
-            document.querySelector(`#grupo__descripcion i`).classList.add("fa-circle-xmark");
-            document.querySelector(`#grupo__descripcion .formulario__input-error`).classList.add("formulario__input-error-activo");
-        }
         if(!campos.precio){
             document.getElementById(`grupo__precio`).classList.add("formulario__grupo-incorrecto");
             document.getElementById(`grupo__precio`).classList.remove("formulario__grupo-correcto");
@@ -120,29 +111,51 @@ btnEnviar.addEventListener("click", async () =>{
             document.querySelector(`#grupo__precio i`).classList.add("fa-circle-xmark");
             document.querySelector(`#grupo__precio .formulario__input-error`).classList.add("formulario__input-error-activo");
         }
-        document.getElementById("formulario__mensaje").classList.add("formulario__mensaje-activo");
+        if(!campos.imagen){
+          alert("No se ha subido una imagen");
+        }
     }
 });
+
+var img = document.getElementById('fileInput');
+img.addEventListener("change", function(event) {
+  // Verificar si se seleccionó un archivo
+  if (event.target.files.length > 0) {
+      // Se seleccionó un archivo, en este caso una imagen
+      campos.imagen = true;
+  } else {
+      // No se seleccionó ningún archivo
+      campos.imagen = false;
+  }
+});
+
 
 // Función para subir producto
 export async function subirProducto() {
   var fileInput = document.getElementById('fileInput');
   var file = fileInput.files[0]; // Obtén el archivo seleccionado
-
+  let nomprod = document.getElementById("nombre");
+  let descprod = document.getElementById("des");
+  let cantprod = document.getElementById("cantidad");
+  let precprod = document.getElementById("precio");
+  const nombre = nomprod.value;
+  const descripcion = descprod.value;
+  const cantidad = cantprod.value;
+  const precio = precprod.value;
   const referencia = ref(storage,"/Productos/"+file.name)
 // Crear una referencia al storage de Firebase
 //var storageRef = storage.ref('Productos/' + file.name);
 
 // Subir el archivo al storage
-const task = uploadBytes(referencia, file).then((snapshot) => {
-  console.log('Uploaded a blob or file!');
-});
-  getDownloadURL(ref(storage, referencia))
-  .then((url) => {
-    const urld = url;
-  })
-  .catch((error) => {
-    console.log(error.message);
+  const task = uploadBytes(referencia, file).then((snapshot) => {
+    console.log('Uploaded a blob or file!');
   });
-  
+  getDownloadURL(ref(storage, "/Productos/"+file.name))
+    .then((url) => {
+      const imagenurl = url;
+      AgregarProducto(cantidad,descripcion,imagenurl,nombre,precio,"Activo");
+    })
+    .catch((error) => {
+      // Handle any errors
+    });
 }

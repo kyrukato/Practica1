@@ -102,7 +102,7 @@ export const cargarCarritoUsuario = async () => {
             const firestore = getFirestore();
 
             // Consulta la información del carrito del usuario en Firestore
-            const docRef = doc(firestore, 'carts', userId);
+            const docRef = doc(firestore, 'Carro', userId);
             const docSnap = await getDoc(docRef);
 
             if (docSnap.exists()) {
@@ -127,7 +127,7 @@ export async function saveCartToFirestore() {
       const user = auth.currentUser;
       if (user) {
         const userId = user.uid;
-        const cartRef = doc(firestore, 'carts', userId);
+        const cartRef = doc(firestore, 'Carro', userId);
         await setDoc(cartRef, { items: cartItems });
         console.log('Carrito guardado en Firestore');
       } else {
@@ -144,7 +144,7 @@ export async function updateCartFromFirestore() {
       const user = auth.currentUser;
       if (user) {
         const userId = user.uid;
-        const cartRef = doc(firestore, 'carts', userId);
+        const cartRef = doc(firestore, 'Carro', userId);
         const cartSnapshot = await getDoc(cartRef);
         if (cartSnapshot.exists()) {
           cartItems = cartSnapshot.data().items;
@@ -168,8 +168,12 @@ const db = getFirestore(app);
     const querySnapshot = await getDocs(collection(db, "Usuarios"), where("Usuario", "==", user));
   //Si la consulta no esta vacía significa que ya está registrado el usuario
     if (!querySnapshot.empty) {
-      const doc = querySnapshot.docs[0]; // Obtener el primer documento
-      alert("El usuario ya está registrado:");
+      querySnapshot.forEach((doc) => {
+        const usr = doc.data();
+        if(user === usr.Usuario){
+          alert("El usuario ya está registrado:");
+        }
+      });
     } else {
       createUser(nom,user,pass,ed,email,tel) //Si no está registrado el usuario se manda llamar la función para crearlo
     }
@@ -179,11 +183,16 @@ const db = getFirestore(app);
 export async function ObtenerCorreo(user,pass){
   //Creamos el query y lo ejecutamos
   const querySnapshot = await getDocs(collection(db, "Usuarios"), where("Usuario", "==", user));
-  
+        
   if (!querySnapshot.empty) {
-    const doc = querySnapshot.docs[0]; // Obtener el primer documento
-    loginUser(doc.data().Correo,pass);
+    querySnapshot.forEach((doc) => {
+      const usr = doc.data();
+      if(user === usr.Usuario){
+        loginUser(usr.Correo,pass);
+      }
+    });
   } else {
     alert('Usuario no registrado');
   }
 }
+
