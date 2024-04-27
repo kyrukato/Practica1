@@ -36,9 +36,7 @@ window.onload = async function(){
         } else {
             window.location.replace("/CorritoV2/loginv2.html");
         }
-    });
-    
-        
+    });       
 }
 
 list.addEventListener("change", async function() {
@@ -99,6 +97,7 @@ async function MostrarProducto(){
                 `;
             document.getElementById("lista").innerHTML += opc;
         });
+        setCookie("p","",0);
 }
 
 function AgregarProducto(nombre,precio,imagenprod){
