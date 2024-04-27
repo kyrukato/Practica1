@@ -39,23 +39,20 @@
     position: relative;
     width: 80%;
     margin: 10px;
+    border-radius: 10px;
+    grid-column: 1;
 }
 .texto{
     font-family: roboto;
 }
 
 .grupo_producto{
-    display: none;
+    display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     background: #9B906F;
     margin: 10px;
     border-radius: 10px;
     grid-column: 1;
-}
-
-.grupo_producto-seleccionado{
-    display: grid;
-    opacity: 1;
 }
 
 .boton2{

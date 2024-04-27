@@ -1,4 +1,4 @@
-import { ConsultarUsuario } from "./BD.js";
+import { ConsultarUsuario } from "/JS/v2/BD.js";
 const formulario = document.getElementById("formulario");
 const inputs = document.querySelectorAll("#formulario input");
 const cancelar = document.getElementById("btnCancelar");

@@ -27,7 +27,7 @@ const analytics = getAnalytics(app);
 // Obtiene una referencia a tu base de datos Firebase
 const firestore = getFirestore(app);
 const auth = getAuth(app);
-const storage = getStorage(app)
+const storage = getStorage(app);
 
 const btnEnviar = document.getElementById("boton");
 const expresiones = {
@@ -40,6 +40,19 @@ const campos = {
   cantidad: false,
   precio: false,
   imagen: false
+}
+
+window.onload = function(){
+  onAuthStateChanged(auth, async (user) => {
+      if (user) {
+          if(user.email !== "admin@admin.com")
+          {
+              window.location.replace("/CorritoV2/usuariov2.html")
+          }
+      } else {
+          window.location.replace("/CorritoV2/loginv2.html");
+      }
+  });
 }
 
 const validarformulario = (e) =>{ 

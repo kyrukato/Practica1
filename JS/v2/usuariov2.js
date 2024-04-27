@@ -1,7 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
 // Add Firebase products that you want to use
-import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, browserLocalPersistence, setPersistence } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js'
-import { getFirestore, collection, setDoc, getDoc, doc, where, query, getDocs} from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js'
+import { getAuth, signOut, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, browserLocalPersistence, setPersistence } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js'
+import { getFirestore, collection, setDoc, getDoc, doc, where, query, getDocs, updateDoc} from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js'
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -18,10 +18,11 @@ import { getFirestore, collection, setDoc, getDoc, doc, where, query, getDocs} f
     };
 
   // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);XMLDocument
 // Obtiene una referencia a tu base de datos Firebase
 const firestore = getFirestore(app);
 const auth = getAuth();
+const db = getFirestore(app);
 
 const expresiones = {
 	usuario: /^[a-zA-Z0-9\_\-]{5,16}$/, // Letras, numeros, guion y guion_bajo
@@ -43,18 +44,39 @@ const enviar = document.getElementById("btnCambiar");
 var pass = "";
 var t = ""
 var ed = "";
-/*document.addEventListener("DOMContentLoaded",function(){
+var name = "";
+document.addEventListener("DOMContentLoaded",function(){
     onAuthStateChanged(auth, async (user) => {
         if (user) {
             if(user.email === "admin@admin.com")
             {
                 window.location.replace("/CorritoV2/adminv2.html");
             }
+            else{
+                correo.value = user.email;
+                const querySnapshot = await getDocs(collection(db, "Usuarios"), where("Correo", "==", user.email));
+                if (!querySnapshot.empty) {
+                    querySnapshot.forEach((doc) => {
+                    const usr = doc.data();
+                    if(user.email === usr.Correo){
+                        Nombre.value = usr.Nombre;
+                        usuario.value = usr.Usuario;
+                        Telefono.value = usr.Telefono;
+                        Edad.value = usr.Edad;
+                        Contrasena.value = usr.Contrasena;
+                        pass = usr.Contrasena;
+                        t = usr.Telefono;
+                        ed = usr.Edad;
+                        name = usr.Nombre;
+                    }
+                    });
+                } 
+            }
         } else {
             window.location.replace("/CorritoV2/loginv2.html");
         }
     });
-});*/
+});
 
 cerrar.addEventListener("click", () =>{
     signOut(auth)
@@ -82,11 +104,11 @@ enviar.addEventListener("click", async ()=>{
                     await updateDoc(usuarioRef, {
                         Contrasena: Contrasena.value
                     });
-                    alert("Información actualizada correctamente");
+                    alert("Contraseña actualizada correctamente");
                 }
                 catch(error){
                     console.log(error);
-                    alert("Error al actualizar la información");
+                    alert("Error al actualizar la contraseña");
                 }
             }
             else{
@@ -101,11 +123,10 @@ enviar.addEventListener("click", async ()=>{
         if(expresiones.telefono.test(Telefono.value)){
             try{
                 const usuarioRef = doc(db, "Usuarios", userID);
-                // Set the "capital" field of the city 'DC'
                 await updateDoc(usuarioRef, {
                     Telefono: Telefono.value
                 });
-                alert("Información actualizada correctamente");
+                alert("Teléfono actualizado correctamente");
             }
             catch(error){
                 console.log(error);
@@ -124,15 +145,33 @@ enviar.addEventListener("click", async ()=>{
                 await updateDoc(usuarioRef, {
                     Edad: Edad.value
                 });
-                alert("Información actualizada correctamente");
+                alert("Edad actualizada correctamente");
             }
             catch(error){
                 console.log(error);
-                alert("Error al actualizar la información");
+                alert("Error al actualizar la Edad");
             }
         }
         else{
             alert("Edad ingresada no válida");
+        }
+    }
+    if(Nombre.value !== name){
+        if(expresiones.nombre.test(Nombre.value)){
+            try{
+                const usuarioRef = doc(db, "Usuarios", userID);
+                await updateDoc(usuarioRef, {
+                    Nombre: Nombre.value
+                });
+                alert("Nombre actualizado correctamente");
+            }
+            catch(error){
+                console.log(error);
+                alert("Error al actualizar en Nombre");
+            }
+        }
+        else{
+            alert("Nombre ingresado no válida");
         }
     }
 });

@@ -27,7 +27,8 @@
 
 .buscador{
     background: #6F5B40;
-    width: 50%;
+    width: 60%;
+    border-radius: 10px;
 }
 
 .contenedor{
@@ -36,6 +37,7 @@
     margin: 10px;
     grid-template-columns: 1fr 1fr 1fr;
     padding: 10px;
+    border-radius: 10px;
 }
 
 .link_carrito{
@@ -43,6 +45,7 @@
     float: right;
     margin-right: 20px;
     cursor: pointer;
+    width: 20px;
 }
 
 .info_articulo{
@@ -59,6 +62,8 @@
 .buscar__lupita{
     position: relative;
     z-index: 100;
+    cursor: pointer;
+    width: 18px;
 }
 
 .item{

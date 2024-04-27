@@ -111,16 +111,3 @@ main{
     background: #D7CAA5;
 }
 
-.barra{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #A58F3E;
-}
-
-.opc{
-    color: black;
-    padding: 10px;
-    text-decoration: none;
-}
-

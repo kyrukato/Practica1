@@ -60,6 +60,7 @@ export async function createUser(nom,usr,pass,ed,email,tel) {
 
         console.log('Usuario registrado exitosamente:', user);
         alert('Usuario registrado exitosamente');
+        window.location.reload(true);
     } catch (error) {
         console.error('Error al registrar el usuario:', error.message);
         alert('Error al registrar el usuario: Correo electrónico en uso');
@@ -159,40 +160,53 @@ export async function updateCartFromFirestore() {
     } catch (error) {
       console.error('Error al cargar el carrito desde Firestore:', error.message);
     }
-  }
+}
 // Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
 //Función para validad que un usuario y/o el correo no estén registrados previamente
-  export const ConsultarUsuario = async (nom,user,pass,ed,email,tel) => {
-    //Se crea el query y se ejecuta
-    const querySnapshot = await getDocs(collection(db, "Usuarios"), where("Usuario", "==", user));
-  //Si la consulta no esta vacía significa que ya está registrado el usuario
-    if (!querySnapshot.empty) {
-      querySnapshot.forEach((doc) => {
-        const usr = doc.data();
-        if(user === usr.Usuario){
-          alert("El usuario ya está registrado:");
+export const ConsultarUsuario = async (nom,user,pass,ed,email,tel) => {
+    const usuariosCollection = collection(db, 'Usuarios');
+    try {
+        // Construir la consulta para buscar el usuario por su nombre
+        const q = query(usuariosCollection, where('Usuario', '==', user));
+        const querySnapshot = await getDocs(q);
+
+        if (!querySnapshot.empty) {
+            // Iterar sobre los documentos encontrados (puede haber más de uno si hay usuarios con el mismo nombre)
+            querySnapshot.forEach((doc) => {
+                // Mostrar los datos del usuario encontrado
+                alert("El usuario ",user," ya está registrado");
+            });
+        } else {
+            createUser(nom,user,pass,ed,email,tel);
         }
-      });
-    } else {
-      createUser(nom,user,pass,ed,email,tel) //Si no está registrado el usuario se manda llamar la función para crearlo
+    } catch (error) {
+        console.error('Error al consultar el usuario:', error);
+        alert("Error al registrar el usuario");
     }
-  }
+}
 
 //Función para Obtener el correo del usuario para logearse
 export async function ObtenerCorreo(user,pass){
-  //Creamos el query y lo ejecutamos
-  const querySnapshot = await getDocs(collection(db, "Usuarios"), where("Usuario", "==", user));
-        
-  if (!querySnapshot.empty) {
-    querySnapshot.forEach((doc) => {
-      const usr = doc.data();
-      if(user === usr.Usuario){
-        loginUser(usr.Correo,pass);
-      }
-    });
-  } else {
-    alert('Usuario no registrado');
-  }
+  const usuariosCollection = collection(db, 'Usuarios');
+    try {
+        // Construir la consulta para buscar el usuario por su nombre
+        const q = query(usuariosCollection, where('Usuario', '==', user));
+        const querySnapshot = await getDocs(q);
+
+        if (!querySnapshot.empty) {
+            // Iterar sobre los documentos encontrados (puede haber más de uno si hay usuarios con el mismo nombre)
+            querySnapshot.forEach((doc) => {
+                // Mostrar los datos del usuario encontrado
+                console.log('Usuario encontrado:', doc.data());
+                loginUser(doc.data().Correo,pass);
+            });
+        } else {
+            alert("Usuario no registrado");
+        }
+    } catch (error) {
+        console.error('Error al consultar el usuario:', error);
+        alert("Error al ingresar");
+    }
 }
 
