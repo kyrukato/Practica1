@@ -1,6 +1,46 @@
-p{
-    font-family: 'roboto';
-    text-align: center;
+ul, ol{
+    list-style: none;
+    padding: 0px;
+}
+
+
+
+.nav li a{
+    background: #A58F3E;
+    color: black;
+    font-family: 'Roboto', sans-serif;
+    text-decoration: none;
+    display: block;
+    padding: 10px 15px;
+}
+/*Aplicamos los estilos sólo a las listas que estén directamente dentro del nav*/
+.nav > li{
+    float: left;
+}
+
+/*Sombreado cuando el cursor se pone sobre el item*/
+.nav li a:hover{
+    background: #D7CAA5;
+}
+
+.nav li ul{
+    display: none;
+    position: absolute;
+    min-width: 140px;
+}
+
+.nav li:hover > ul{
+    display: block;
+    z-index: 100;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Roboto', sans-serif;
+    background: #DEC56E;
 }
 
 main{
@@ -12,34 +52,8 @@ main{
 
 .formulario{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 20px;
-}
-
-.formulario__grupobtn{
-    grid-row: 2;
-    grid-column-start: 3;
-}
-
-footer {
-    background-color: #554500; /* Color café */
-    color: white;
-}
-
-.formulario__gruponombre{
-    grid-column-start: 1;
-    width: 100%;
-    padding: 5px;
-}
-
-.formulario__grupocorreo{
-    grid-column-start: 1;
-    grid-row: 2;
-    width: 100%;
-    padding: 5px;
-}
-.formulario__grupoc{
-    grid-column-start: 3;
 }
 
 .formulario__label{
@@ -91,6 +105,9 @@ footer {
     opacity: 0;
 }
 
+.formulario__mensaje, .formulario__grupobtn{
+    grid-column: span 2;
+}
 
 .formulario__mensaje{
     height: 45px;
@@ -125,3 +142,32 @@ footer {
 .formulario__grupo-incorrecto .formulario__input{
     border: 3px solid #bb2929;
 }
+
+.formulario__btn{
+    background: #D7CAA5;
+}
+
+.barra{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.opc{
+    color: black;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.iconos{
+    text-align: right;
+    float: right;
+    padding: 10px;
+}
+
+.item{
+    color: white;
+    text-decoration-color: white;
+}
+

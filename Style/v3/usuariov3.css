@@ -1,0 +1,10 @@
+.info a{
+    font-family: roboto;
+    text-decoration: none;
+    color: black;
+}
+
+.info{
+    text-align: center;
+    margin-bottom: 10px;
+}

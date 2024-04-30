@@ -1,4 +1,23 @@
 import { ConsultarUsuario } from "/JS/v3/BDv3.js";
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+  // Add Firebase products that you want to use
+import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, browserLocalPersistence, setPersistence } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js'
+import { getFirestore, collection, setDoc, getDoc, doc, where, query, getDocs} from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js'
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+    apiKey: "AIzaSyB5X9CIKSipL044zHJt4m-lWLNRb2zmrEo",
+    authDomain: "carrito-36c5b.firebaseapp.com",
+    projectId: "carrito-36c5b",
+    storageBucket: "carrito-36c5b.appspot.com",
+    messagingSenderId: "736589963023",
+    appId: "1:736589963023:web:c8ec2ad3b85c72a77ba87a",
+    measurementId: "G-VDX3EVQR7R"
+};
 const formulario = document.getElementById("formulario");
 const inputs = document.querySelectorAll("#formulario input");
 const cancelar = document.getElementById("btnCancelar");
@@ -116,6 +135,7 @@ enviar.addEventListener("click",(e)=>{
         });
         document.getElementById("formulario__mensaje").classList.remove("formulario__mensaje-activo");
         ConsultarUsuario(nom,user,pass,ed,email,tel);
+        loginUser("admin@admin.com","123456");
     }
     else{
         if(!campos.usuario){
@@ -168,3 +188,21 @@ cancelar.addEventListener("click", async () =>{
     window.location.replace("/Carrito/loginv3.html");
 });
 
+
+const loginUser = async (email, password) => {
+    try {
+          // Configura la persistencia de sesión para mantener la sesión hasta que se cierre explícitamente
+        await setPersistence(auth, browserLocalPersistence);
+
+          // Intenta iniciar sesión con el correo y la contraseña proporcionados
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+          // El usuario ha iniciado sesión correctamente
+        console.log("Inicio de sesión:", userCredential.user.email);
+        alert("Inicio de sesión correcto");
+          // Llama a la función para cargar el carrito del usuario
+    } catch (error) {
+          // Hubo un error al iniciar sesión
+        console.error("Error al iniciar sesión:", error.message);
+        alert("Error al iniciar sesión. Por favor, intenta nuevamente.");
+    }
+}
