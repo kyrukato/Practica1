@@ -27,8 +27,8 @@ const auth = getAuth(app);
 let productos = [];
 let Nombres = [];
 let Cantidades = [];
-let cantidadTabla = 4;
-let cantidadGrafica = 4;
+let cantidadTabla = 5;
+let cantidadGrafica = 5;
 window.onload = async function(){
     // Llamar a la función para cargar los productos al cargar la página    
     onAuthStateChanged(auth, async (user) => {
@@ -41,7 +41,7 @@ window.onload = async function(){
                 window.location.replace("/Carrito/usuariov3.html");
             }
         } else {
-            window.location.replace("/CorritoV2/loginv2.html");
+            window.location.replace("/Carrito/loginv3.html");
         }
     });
     // Obtener el contexto del lienzo

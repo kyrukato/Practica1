@@ -6,6 +6,7 @@
     <title>Mensajes</title>
     <link rel="stylesheet" href="/Style/diseno.css">
     <link rel="stylesheet" href="/Style/v3/mensajesv3.css">
+    <script src="https://cdn.jsdelivr.net/npm/nodemailer@6.5.0/dist/browser/nodemailer.min.js"></script>
     <link href= "https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body class="body">
@@ -20,7 +21,7 @@
             </div>
         </div>
     </nav>
-    <form action="" class="formulario">
+    <form id="form" action="" class="formulario">
         <div class="formulario__grupo sup">
             <table id="tabla" class="tabla">
                 <thead>
@@ -39,7 +40,7 @@
         <div class="formulario__grupo formulario__grupoc" id="grupo__comentario">
             <label for="usuario" class="formulario__label">USUARIO</label>
             <div class="formulario__grupo-input">
-                <input name="usuario" type="text" class="formulario__input" id="usuario" readonly="yes">
+                <input name="usuario" type="text" name="user" class="formulario__input" id="usuario" readonly="yes">
             </div>
         </div>
         <div class="formulario__grupo formulario__grupoc" id="grupo__comentario">
@@ -51,15 +52,17 @@
         <div class="formulario__grupo formulario__grupoc" id="grupo__comentario">
             <label for="comentario" class="formulario__label">RESPUESTA</label>
             <div class="formulario__grupo-input">
-                <textarea class="comentario" name="comentario" id="respuesta" cols="30" rows="10"></textarea>
+                <textarea class="comentario" name="mensaje" id="respuesta" cols="30" rows="10"></textarea>
             </div>
         </div>
         <div class="formulario__grupobtn">
             <button type="button" class="formulario__btn" id="btnCancelar">CANCELAR</button>
-            <button type="button" class="formulario__btn" id="btnEnviar">RESPONDER</button>
+            <input type="submit" class="formulario__btn" id="button" value="RESPONDER" >
         </div>
     </form>
-    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script type="text/javascript"> emailjs.init('D4IaGipV6QEhemGp5') </script>
     <script src="https://kit.fontawesome.com/cf390a3f4e.js" crossorigin="anonymous"></script>
     <script src="/JS/v3/mensajes.js" type="module"></script>
 </body>

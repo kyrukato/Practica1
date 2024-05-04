@@ -1,7 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
 // Add Firebase products that you want to use
 import { getAuth, signOut, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, browserLocalPersistence, setPersistence } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js'
-import { getFirestore, collection, setDoc, getDoc, doc, Timestamp, where, query, getDocs, addDoc} from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js'
+import { getFirestore, collection, setDoc, getDoc, Timestamp, where, query, getDocs, addDoc} from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js'
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -51,7 +51,7 @@ btnEnviar.addEventListener("click", async () =>{
                     const resultado = documento.docs[0];
                     mensaje.push({
                         Status: false,
-                        Usuario: resultado.data().Nombre,
+                        Usuario: resultado.data().Usuario,
                         Correo: correo,
                         Comentario: comentario.value,
                         Fecha: timestamp
@@ -60,6 +60,9 @@ btnEnviar.addEventListener("click", async () =>{
                         Comentarios: mensaje
                     });
                     mensaje = [];
+                    alert("Su mensaje ha sido enviado con éxito");
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                    window.location.reload();
                 }
             }
             

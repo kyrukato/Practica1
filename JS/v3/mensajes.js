@@ -1,7 +1,7 @@
 // Importa el SDK de Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, browserLocalPersistence, setPersistence } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js'
-import { getFirestore, collection, getDocs, setDoc, Timestamp, doc, getDoc} from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+import { getFirestore, collection, getDocs, updateDoc , setDoc, Timestamp, doc, getDoc} from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 import { setCookie } from "../cookies.js";
 // Your web app's Firebase configuration
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -28,11 +28,11 @@ let mensajesLeidos = [];
 let mensajesNoLeidos = [];
 const parametro = new URLSearchParams(window.location.search);
 const dato = parametro.get('dato');
-const inputfecha = document.getElementById("fecha");
+let IDmensaje;
 const inputusuario = document.getElementById("usuario");
 const inputmensaje = document.getElementById("comentario");
 const inputrespuesta = document.getElementById("respuesta");
-const lista = document.getElementById("listamensajes");
+let mensajerespondido = [];
 let correousuario = "";
 window.onload = async function(){
     // Llamar a la función para cargar los productos al cargar la página    
@@ -46,7 +46,7 @@ window.onload = async function(){
                 window.location.replace("/Carrito/usuariov3.html");
             }
         } else {
-            window.location.replace("/CorritoV2/loginv2.html");
+            window.location.replace("/Carrito/loginv3.html");
         }
     });
 };
@@ -57,7 +57,6 @@ async function CargarMensajes(){
         let cont = 0;
         querySnapshot.forEach((item) => {
             const m = item.data();
-            console.log(m);
             m.Comentarios.forEach((mensaje) =>{
                 if(dato === 'true'){
                     if(mensaje.Status === true){
@@ -70,13 +69,13 @@ async function CargarMensajes(){
                     }
                 }
                 else{
-                    console.log(mensaje.Status);
                     if(!mensaje.Status){
                         mensajesNoLeidos.push({
                             Usuario: mensaje.Usuario,
                             Mensaje: mensaje.Comentario,
                             Correo: mensaje.Correo,
-                            Fecha: mensaje.Fecha
+                            Fecha: mensaje.Fecha,
+                            ID: item.id
                         });
                     }
                 }
@@ -141,7 +140,7 @@ function LlenarTabla(arrelgoMensajes){
     }
 }
 
-function AgregarEvento(arrelgoMensajes){
+async function AgregarEvento(arrelgoMensajes){
     const botonesLeer = document.querySelectorAll(".btnLeer");
     // Adjuntar un controlador de eventos a cada botón
     botonesLeer.forEach(boton => {
@@ -151,7 +150,57 @@ function AgregarEvento(arrelgoMensajes){
             // Obtener los valores de las celdas de la fila
             inputusuario.value = fila.cells[0].textContent;
             inputmensaje.value = arrelgoMensajes[fila.rowIndex -1].Mensaje;
-
+            IDmensaje = arrelgoMensajes[fila.rowIndex -1].ID
+            correousuario = arrelgoMensajes[fila.rowIndex -1].Correo
+            mensajerespondido.push({
+                Comentario: arrelgoMensajes[fila.rowIndex -1].Mensaje,
+                Correo: arrelgoMensajes[fila.rowIndex -1].Correo,
+                Status: true,
+                Usuario: arrelgoMensajes[fila.rowIndex -1].Usuario,
+                Fecha: arrelgoMensajes[fila.rowIndex -1].Fecha
+            });
+            console.log("Correo:",correousuario);
         });
     });
+}
+
+const btn = document.getElementById('button');
+
+document.getElementById('form').addEventListener('submit', async function(event) {
+    event.preventDefault();  
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    console.log("se intenta enviar");
+    enviarCorreo(inputusuario.value,correousuario,inputrespuesta.value);
+    await new Promise(resolve => setTimeout(resolve, 500));
+    mensajeleido();
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    window.location.reload();
+});
+
+function enviarCorreo(nombre, correo, message) {
+    const serviceID = "default_service";
+    const templateID = 'template_m26pynt';
+    emailjs.send(serviceID, templateID, {
+        usuario: nombre,
+        correo: correo,
+        mensaje: message,
+    }).then(() => {
+        alert("¡Correo enviado correctamente!");
+    }, (err) => {
+        console.log(JSON.stringify(err));
+        alert("Error al enviar el correo");
+        }
+    );
+}
+
+async function mensajeleido(){
+    try{
+        const mensajesRef = doc(db, "Mensajes", IDmensaje);
+        await updateDoc(mensajesRef, {
+            Comentarios: mensajerespondido
+        });
+    }
+    catch(error){
+        console.log(error);
+    }
 }

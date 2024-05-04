@@ -34,7 +34,7 @@ window.onload = async function(){
             console.log(listaProductos);
             MostrarProducto();
         } else {
-            window.location.replace("/CorritoV2/loginv2.html");
+            window.location.replace("/Carrito/loginv3.html");
         }
     });       
 }
@@ -97,6 +97,7 @@ async function MostrarProducto(){
                 `;
             document.getElementById("lista").innerHTML += opc;
         });
+        setCookie("p","",0);
 }
 
 function AgregarProducto(nombre,precio,imagenprod){

@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/Style/diseno.css">
-    <link rel="stylesheet" href="/Style/v3/carritov3.css">
+    <link rel="stylesheet" href="/Style/v3/reporteventas.css">
     <link href= "https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <title>Carrito</title>
+    <title>Ventas del dia</title>
 </head>
 <body>
     <nav class="navbar" id="barranav">
         <div class="container">
             <a href="/Carrito/inicio.html"><img src="/Imagenes/logo.jpg" alt="Logo" class="logo" ></a>
-            <span class="titulo" id="titulo">CARRITO</span>
+            <span class="titulo" id="titulo">TOTAL DE VENTAS POR PERIODO</span>
             <div class="iconos">
                 <a class="carrito" href="/Carrito/carritoV3.html"><i class="carrito fa-solid fa-cart-shopping"></i></a>
                 <a class="carrito" href="/Carrito/usuariov3.html"><i class="fa-regular fa-user"></i></a>
@@ -20,14 +20,30 @@
             </div>
         </div>
     </nav>
-    <div class="h">
-        <a href="/Carrito/historialcompras.html" class="historial">VER MI HISTORIAL DE COMPRAS</a>
+    <div>
+        <label for="fecha1">FECHA DE INICIO: </label>
+        <input type="date" class="fecha1" id="fecha1" name="fecha1">
+        <label for="fecha2">FECHA DE FINALIZACIÓN: </label>
+        <input type="date" class="fecha2" id="fecha2" name="fecha2">
+        <button type="button" id="mostrar">BUSCAR</button>
     </div>
     <form action="" class="contenedor" id="contenedor">
-        
+        <table id="tabla" class="tabla">
+            <thead>
+                <tr>
+                    <th>NOMBRE</th>
+                    <th>UNIDADES VENDIDAS</th>
+                    <th>FECHA</th>
+                    <th>USUARIO</th>
+                </tr>
+            </thead>
+            <tbody id="cuerpotabla" class="cuerpotabla">
+
+            </tbody>
+        </table>
 
     </form>
-    <script src="/JS/v3/carritov3.js" type="module"></script>
+    <script src="/JS/v3/ventasperiodo.js" type="module"></script>
     <script src="https://kit.fontawesome.com/cf390a3f4e.js" crossorigin="anonymous"></script>
 </body>
 </html>

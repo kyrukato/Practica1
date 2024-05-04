@@ -74,10 +74,10 @@ document.addEventListener("DOMContentLoaded", async function(){
                 }
             }
             else{ 
-                window.location.replace("/CorritoV2/iniciov2.html");
+                window.location.replace("/Carrito/usuariov3.html");
             }
         } else {
-            window.location.replace("/CorritoV2/loginv2.html");
+            window.location.replace("/Carrito/loginv3.html");
         }
     })
 });

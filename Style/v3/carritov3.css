@@ -1,0 +1,84 @@
+.iconos{
+    text-align: right;
+    float: right;
+    padding: 10px;
+}
+
+.contenedor{
+    display: grid;
+    background: #B7883E;
+    margin: 10px;
+    grid-template-columns: 2fr 1fr;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.carrito{
+    color: white;
+}
+
+.grupo{
+    grid-column: 2;
+    grid-row: 1;
+    background: #FBE186;
+    border-radius: 15px;
+    text-align: center;
+    margin: 10px;
+}
+
+.boton{
+    text-align: center;
+}
+
+.btn_aceptar, .btn_cancelar{
+    background: #EFE2BC;
+    margin: 5px;
+}
+
+.imagen_producto{
+    position: relative;
+    width: 80%;
+    margin: 10px;
+    border-radius: 10px;
+    grid-column: 1;
+}
+.texto{
+    font-family: roboto;
+}
+
+.grupo_producto{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    background: #9B906F;
+    margin: 10px;
+    border-radius: 10px;
+    grid-column: 1;
+}
+
+.boton2{
+    text-align: right;
+}
+
+.cantidad{
+    text-align: center;
+    margin: 20px;
+}
+
+.c{
+    background: #DEC56E;
+}
+
+.subt{
+    background: #DEC56E;
+}
+
+.historial{
+    text-decoration: none;
+    color: black;
+}
+
+.h{
+    text-align: right;
+    padding: 20px;
+    font-family: roboto;
+}

@@ -1,8 +1,8 @@
   // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
   // Add Firebase products that you want to use
-import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, browserLocalPersistence, setPersistence } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js'
-import { getFirestore, collection, setDoc, getDoc, doc, where, query, getDocs} from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js'
+import { getAuth, sendEmailVerification , createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, browserLocalPersistence, setPersistence } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js'
+import { getFirestore, collection, setDoc, updateDoc, getDoc, doc, where, query, getDocs} from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js'
     // TODO: Add SDKs for Firebase products that you want to use
     // https://firebase.google.com/docs/web/setup#available-libraries
   
@@ -39,7 +39,7 @@ export async function createUser(nom,usr,pass,ed,email,tel) {
           // Crea el usuario en Firebase Authentication
         const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
         const user = userCredential.user;
-
+        console.log(user);
           // Guarda la información del usuario en Firestore
         await setDoc(doc(firestore, 'Usuarios', user.uid), {
             Nombre: nom,
@@ -49,18 +49,21 @@ export async function createUser(nom,usr,pass,ed,email,tel) {
             Correo: email,
             Telefono: tel,
             Ventas: 0,
-            Status: true
+            Status: false,
+            Ingresos: 0,
+            Verificado: false
         });
           // Crea una colección de carrito para el usuario con el mismo ID
         await setDoc(doc(firestore, 'Carro', user.uid), {
                 products: [] // Inicialmente el carrito estará vacío, pero puedes almacenar productos aquí
         });
           //Crea una colección del historial de compras del usuario
-        await setDoc(doc(firestore, 'Ventas', user.uid), {
+        await setDoc(doc(firestore, 'Historial', user.uid), {
             products: [] 
         });
+        CorreoVerificacion(user);
         console.log('Usuario registrado exitosamente:', user);
-        alert('Usuario registrado exitosamente');
+        await new Promise(resolve => setTimeout(resolve, 2000));
         window.location.reload(true);
     } catch (error) {
         console.error('Error al registrar el usuario:', error.message);
@@ -68,20 +71,45 @@ export async function createUser(nom,usr,pass,ed,email,tel) {
     }
 }
 
+async function CorreoVerificacion(user) {
+  await new Promise(resolve => setTimeout(resolve, 1000));
+        sendEmailVerification(user)
+          .then(() => {
+            // Email de verificación enviado correctamente
+            console.log('Email de verificación enviado correctamente');
+          })
+          .catch((error) => {
+            // Error al enviar el email de verificación
+            console.error('Error al enviar el email de verificación:', error);
+          });
+          await new Promise(resolve => setTimeout(resolve, 1000));
+}
+
   //Función para iniciar sesión con autenticación de Firestore
-export const loginUser = async (email, password) => {
+export const loginUser = async (email, password, verificacion,status) => {
     try {
-          // Configura la persistencia de sesión para mantener la sesión hasta que se cierre explícitamente
-        await setPersistence(auth, browserLocalPersistence);
+      await setPersistence(auth, browserLocalPersistence);
 
           // Intenta iniciar sesión con el correo y la contraseña proporcionados
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const usr = auth.currentUser;
+        const usuarioRef = doc(db, "Usuarios", usr.uid);
+        if((verificacion && status) || usr.emailVerified){
+          await updateDoc(usuarioRef, {
+            Verificado: true
+          });
+            
           // El usuario ha iniciado sesión correctamente
         console.log("Inicio de sesión:", userCredential.user.email);
         alert("Inicio de sesión correcto");
           // Redirige al usuario a la página de productos
         window.location.replace("/Carrito/inicio.html");
           // Llama a la función para cargar el carrito del usuario
+        }
+        else{
+          alert("El usuario se cuentra inhabilitado para poder acceder");
+        }
+        
     } catch (error) {
           // Hubo un error al iniciar sesión
         console.error("Error al iniciar sesión:", error.message);
@@ -121,6 +149,8 @@ export const cargarCarritoUsuario = async () => {
         console.error('Error al cargar el carrito del usuario:', error.message);
     }
 }
+
+
   
   // Función para guardar el carrito en Firestore
 export async function saveCartToFirestore() {
@@ -174,7 +204,7 @@ export const ConsultarUsuario = async (nom,user,pass,ed,email,tel) => {
               // Iterar sobre los documentos encontrados (puede haber más de uno si hay usuarios con el mismo nombre)
             querySnapshot.forEach((doc) => {
                   // Mostrar los datos del usuario encontrado
-                alert("El usuario ",user," ya está registrado");
+                alert("El usuario "+user+" ya está registrado");
             });
         } else {
             createUser(nom,user,pass,ed,email,tel);
@@ -192,13 +222,12 @@ export async function ObtenerCorreo(user,pass){
           // Construir la consulta para buscar el usuario por su nombre
         const q = query(usuariosCollection, where('Usuario', '==', user));
         const querySnapshot = await getDocs(q);
-  
         if (!querySnapshot.empty) {
               // Iterar sobre los documentos encontrados (puede haber más de uno si hay usuarios con el mismo nombre)
-            querySnapshot.forEach((doc) => {
+            querySnapshot.forEach(async (doc) => {
                   // Mostrar los datos del usuario encontrado
-                console.log('Usuario encontrado:', doc.data());
-                loginUser(doc.data().Correo,pass);
+                  loginUser(doc.data().Correo,pass,doc.data().Status,doc.data().Verificado);
+                
             });
         } else {
             alert("Usuario no registrado");

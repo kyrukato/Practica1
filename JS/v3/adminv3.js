@@ -73,7 +73,7 @@ cerrar.addEventListener("click", () =>{
         .then(() => {
             // Cierre de sesión exitoso
             console.log("Sesión cerrada exitosamente.");
-            window.location.replace("/CorritoV2/loginv2.html");
+            window.location.replace("/Carrito/loginv3.html");
         })
         .catch((error) => {
             // Error al cerrar la sesión

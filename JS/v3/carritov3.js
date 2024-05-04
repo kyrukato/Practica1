@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, browserLocalPersistence, setPersistence } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js'
-import { getFirestore, collection, setDoc, getDoc, doc, where, query, getDocs, updateDoc} from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js'
+import { getFirestore, collection, setDoc, getDoc, doc, Timestamp, where, query,addDoc, getDocs, updateDoc} from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js'
 const firebaseConfig = {
     apiKey: "AIzaSyB5X9CIKSipL044zHJt4m-lWLNRb2zmrEo",
     authDomain: "carrito-36c5b.firebaseapp.com",
@@ -19,28 +19,38 @@ const productosCollection = collection(db, 'Productos');
 const buscar = document.getElementById("buscar");
 const list = document.getElementById("prod");
 const auth = getAuth(app);
+let cantidadproductos = 0;
+let candidadActual;
 let listaProductos = [];
 let total = 0.0;
+let ingresos = 0;
+let historial = [];
+const fecha = new Date()
+const timestamp = Timestamp.fromDate(fecha);
 window.onload = function() {
     onAuthStateChanged(auth, async (user) => {
         if (user) {
             const usr = auth.currentUser;
-            const userID = usr.uid;
+            let userID = usr.uid;
             const ref = doc(db, "Carro", userID);
+            const refhistorial = doc(db, "Historial", userID);
             const snapshot = await getDoc(ref);
+            const snap = await getDoc(refhistorial);
             if(snapshot.exists){
                 listaProductos = snapshot.data().items || [];
             }
-            console.log(listaProductos);
+            if(snap.exists){
+                historial = snap.data().items || [];
+            }
             MostrarProducto();
         } else {
-            window.location.replace("/CorritoV2/loginv2.html");
+            window.location.replace("/Carrito/loginv3.html");
         }
     });
 }
 
-async function MostrarProducto(){
-    listaProductos.forEach((item) => {
+function MostrarProducto(){
+    listaProductos.forEach(async (item) => {
         let sub = parseFloat(item.Cantidad) * parseFloat(item.Precio);
         total += sub;
         const productCard = `
@@ -60,12 +70,36 @@ async function MostrarProducto(){
         </div>
             `;
         document.getElementById("contenedor").innerHTML += productCard;
+        await new Promise(resolve => setTimeout(resolve, 300));
         let modificar = document.querySelectorAll(".c");
-        modificar.forEach(d =>{
-            d.addEventListener("change", (e) =>{
-                ActualizarCantidad(e.target.name,e.target.value);
+        modificar.forEach(btn => {
+            btn.addEventListener("change", (e) => {
+                try {
+                    const user = auth.currentUser;
+                    if (user) {
+                        const userID = user.uid;
+                        const ref = doc(db, "Carro", userID);
+                        const existe = listaProductos.findIndex(a => a.Nombre === e.target.name);
+                        console.log(existe);
+                        if (existe !== -1) {
+                            listaProductos[existe].Cantidad = e.target.value;
+                            let subtotal = document.getElementById(e.target.name);
+                            subtotal.value = parseFloat(listaProductos[existe].Cantidad) * parseFloat(listaProductos[existe].Precio);
+                        }
+                        total = 0;
+                        listaProductos.forEach((items) => {
+                            total += parseFloat(items.Cantidad) * parseFloat(items.Precio);
+                        });
+                        const inputTotal = document.getElementById("totalc");
+                        inputTotal.innerText = "$" + total;
+                        setDoc(ref, { items: listaProductos });
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
             });
         });
+        
     });
     const productCard = `
     <div class="grupo" id="grupo__usuario">
@@ -90,32 +124,6 @@ async function MostrarProducto(){
     inputTotal.innerText = "$"+total;
 }
 
-function ActualizarCantidad(pnom,pcant){
-    try{
-        const user = auth.currentUser;
-        if(user){
-            const userID = user.uid;
-            const ref = doc(db, "Carro", userID);
-            const existe = listaProductos.findIndex(item => item.Nombre === pnom);
-            console.log(existe);
-            if(existe !== -1){
-                listaProductos[existe].Cantidad = pcant;
-                let subtotal = document.getElementById(pnom);
-                subtotal.value = parseFloat(listaProductos[existe].Cantidad) * parseFloat(listaProductos[existe].Precio);
-            }
-            total = 0;
-            listaProductos.forEach((items) =>{
-                total += parseFloat(items.Cantidad) * parseFloat(items.Precio);
-            });
-            const inputTotal = document.getElementById("totalc");
-            inputTotal.innerText = "$"+total;
-            setDoc(ref,{items: listaProductos});
-        }
-    }
-    catch(error){
-        console.log(error);
-    }
-}
 
 
 function ComprobarStok(){
@@ -149,7 +157,8 @@ function ComprobarStok(){
 }
 
 
-function ComprarCarrito() {
+async function ComprarCarrito() {
+    
     try {
         if(listaProductos.length === 0){
             alert("Su carrito está vacío");
@@ -157,6 +166,7 @@ function ComprarCarrito() {
         else{
             if(ComprobarStok()){
                 listaProductos.forEach(async (item) =>{
+                    
                     // Disminuir el stock del producto en la base de datos
                     const productQuery = query(collection(db, 'Productos'), where('Nombre', '==', item.Nombre));
                     const productQuerySnapshot = await getDocs(productQuery);
@@ -164,14 +174,37 @@ function ComprarCarrito() {
                         const productDoc = productQuerySnapshot.docs[0];
                         const productId = productDoc.id;
                         const productData = productDoc.data();
-        
                         const newStock = productData.Cantidad - item.Cantidad;
-                        const ventas = productData.Ventas + item.Cantidad;
+                        const ventas = productData.Ventas + item.Cantidad;const usr = auth.currentUser;
+                        const querySnapshot = await getDocs(collection(db, "Usuarios"), where("Correo", "==", usr.email));
+                        let nombreUsuario;
+                        historial.push({
+                            Nombre: item.Nombre,
+                            Precio: item.Precio,
+                            Link: item.Link,
+                            Cantidad: item.Cantidad,
+                            Fecha: fecha
+                        });
+                        cantidadproductos += item.Cantidad;
+                        querySnapshot.forEach((doc) => {
+                            const user = doc.data();
+                            if(user.email === usr.Correo){
+                                nombreUsuario = user.Usuario;
+                                candidadActual = user.Ventas;
+                                ingresos = user.Ingresos;
+                            }
+
+                        });
                         try{
                             if (newStock >= 0) {
-                                // Actualizar el stock solo si hay suficiente cantidad disponible
                                 await updateDoc(doc(db, 'Productos', productId), { Cantidad: newStock, Ventas: ventas });
-                                }
+                            }
+                                const docRef = await addDoc(collection(db, 'Ventas'), {
+                                    Producto: item.Nombre,
+                                    Cantidad: item.Cantidad,
+                                    Usuario: nombreUsuario,
+                                    Fecha: fecha
+                            });
                         }
                         catch(error){
                             console.log(error);
@@ -180,12 +213,34 @@ function ComprarCarrito() {
                         console.log('No se encontró el producto en la base de datos');
                     }
                 });
+                
+    console.log(historial);
                 LimpiarCarrito();
-                }
+            }
         }
     } catch (error) {
         console.log(error);
         alert("Error al hacer la compra");
+    }
+}
+
+async function actualizarCantidadProductos() {
+    // Realizar la actualización de la cantidad de productos
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    const usr = auth.currentUser;
+    const userID = usr.uid;
+    const usuarioRef = doc(db, "Usuarios", userID);
+    const historialref = doc(db, "Historial", userID);
+    updateDoc(historialref,{items: historial});
+    candidadActual += cantidadproductos;
+    ingresos += total;
+    try {
+        await updateDoc(usuarioRef, {
+            Ventas: candidadActual,
+            Ingresos: ingresos
+        });
+    } catch (error) {
+        console.log(error);
     }
 }
 
@@ -211,6 +266,7 @@ async function LimpiarCarrito(){
     const userID = user.uid;
     const ref = doc(db, "Carro", userID);
     setDoc(ref,{items: listaProductos});
+    actualizarCantidadProductos();
     await new Promise(resolve => setTimeout(resolve, 1000));
     alert("Su compra se ha realizado con éxito");
     window.location.reload();

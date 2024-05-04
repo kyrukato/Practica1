@@ -22,9 +22,9 @@ const app = initializeApp(firebaseConfig);
 
 // Referencia a la colección de productos en Firestore
 const db = getFirestore(app);
-const productosCollection = collection(db, 'Productos');
+const usuariosCollection = collection(db, 'Usuarios');
 const auth = getAuth(app);
-let productos = [];
+let usuarios = [];
 let Nombres = [];
 let Cantidades = [];
 let cantidadTabla = 5;
@@ -51,26 +51,25 @@ window.onload = async function(){
 
 async function CargarProductos(){
     try{
-        const querySnapshot = await getDocs(productosCollection);
+        const querySnapshot = await getDocs(usuariosCollection);
         querySnapshot.forEach((item) => {
             console.log(item);
             const prod = item.data();
-            let producto ={
-                Imagen: prod.Link,
-                Nombre: prod.Nombre,
-                Descripcion: prod.Descripcion,
-                Precio: prod.Precio,
-                Unidades: prod.Ventas,
-                Ingresos: prod.Ventas * prod.Precio
-            };
-            productos.push(producto);
+            if(prod.Usuario !== "admin"){
+                let producto ={
+                    Nombre: prod.Nombre,
+                    Usuario: prod.Usuario,
+                    Productos: prod.Ventas
+                };
+                usuarios.push(producto);
+            }
         });
-        productos.sort((a,b) => b.Ingresos - a.Ingresos);
-        const top10 = productos.slice(0,cantidadTabla);
-        const top5 = productos.slice(0,cantidadGrafica);
+        usuarios.sort((a,b) => b.Productos - a.Productos);
+        const top10 = usuarios.slice(0,cantidadTabla);
+        const top5 = usuarios.slice(0,cantidadGrafica);
         top5.forEach((elemnto) =>{
-            Nombres.push(elemnto.Nombre);
-            Cantidades.push(elemnto.Ingresos);
+            Nombres.push(elemnto.Usuario);
+            Cantidades.push(elemnto.Productos);
         });
         LlenarTabla(top10);
     }
@@ -112,34 +111,19 @@ function LlenarTabla(arreglo){
     const cuerpoTabla = document.getElementById("cuerpotabla");
         arreglo.forEach(item =>{
             const fila = document.createElement("tr");
-            
-            const Imagen = document.createElement("img");
-            Imagen.src = item.Imagen;
-            Imagen.classList.add("imagenprod");
-            const celdaImagen = document.createElement("td");
-            celdaImagen.appendChild(Imagen);
-            fila.appendChild(celdaImagen);
 
             // Crear celdas para cada dato y agregarlos a la fila
             const celdaNombre = document.createElement("td");
             celdaNombre.textContent = item.Nombre;
             fila.appendChild(celdaNombre);
 
-            const cendaDescripcion = document.createElement("td");
-            cendaDescripcion.textContent = item.Descripcion;
-            fila.appendChild(cendaDescripcion);
+            const celdaUsuario = document.createElement("td");
+            celdaUsuario.textContent = item.Usuario;
+            fila.appendChild(celdaUsuario);
 
-            const celdaPrecio = document.createElement("td");
-            celdaPrecio.textContent = "$"+item.Precio;
-            fila.appendChild(celdaPrecio);
-
-            const celdaEdad = document.createElement("td");
-            celdaEdad.textContent = item.Unidades;
-            fila.appendChild(celdaEdad);
-
-            const celdaIngresos = document.createElement("td");
-            celdaIngresos.textContent = item.Ingresos;
-            fila.appendChild(celdaIngresos);
+            const celdaProductos = document.createElement("td");
+            celdaProductos.textContent = item.Productos;
+            fila.appendChild(celdaProductos);
             
             // Agregar la fila completa al cuerpo de la tabla
             cuerpoTabla.appendChild(fila);

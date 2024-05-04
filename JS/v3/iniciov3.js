@@ -26,6 +26,7 @@ const productosCollection = collection(db, 'Productos');
 const buscar = document.getElementById("buscar");
 const list = document.getElementById("prod");
 const auth = getAuth(app);
+let nombreProducto ="";
 let listaProductos = [];
 // Función para cargar los productos desde Firestore y mostrarlos en la página
 
@@ -44,7 +45,6 @@ window.onload = async function(){
             if(snapshot.exists){
                 listaProductos = snapshot.data().items || [];
             }
-            console.log(listaProductos);
         } else {
             window.location.replace("/Carrito/loginv3.html");
         }
@@ -118,7 +118,7 @@ list.addEventListener("change", async function() {
 list.addEventListener("keypress",function(keyEvent){
     if(keyEvent.key === 'Enter'){
         if(list.value){
-            window.location.replace("/Carrito/productov3.html");
+            window.location.replace('/Carrito/productov3.html');
         }
     }
 });
