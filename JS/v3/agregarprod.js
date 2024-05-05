@@ -153,8 +153,8 @@
     let precprod = document.getElementById("precio");
     const nombre = nomprod.value;
     const descripcion = descprod.value;
-    const cantidad = cantprod.value;
-    const precio = precprod.value;
+    const cantidad = parseInt(cantprod.value);
+    const precio = parseFloat(precprod.value);
     const referencia = ref(storage,"/Productos/"+file.name)
   // Crear una referencia al storage de Firebase
   //var storageRef = storage.ref('Productos/' + file.name);

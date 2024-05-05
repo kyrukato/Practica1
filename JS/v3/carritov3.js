@@ -158,7 +158,10 @@ function ComprobarStok(){
 
 
 async function ComprarCarrito() {
-    
+    const usr = auth.currentUser;
+    const usuarioRef = doc(db, 'Usuarios', usr.uid);
+    const querySnapshot = await getDoc(usuarioRef);
+    let nombreUsuario = querySnapshot.data().Usuario;
     try {
         if(listaProductos.length === 0){
             alert("Su carrito está vacío");
@@ -175,33 +178,25 @@ async function ComprarCarrito() {
                         const productId = productDoc.id;
                         const productData = productDoc.data();
                         const newStock = productData.Cantidad - item.Cantidad;
-                        const ventas = productData.Ventas + item.Cantidad;const usr = auth.currentUser;
-                        const querySnapshot = await getDocs(collection(db, "Usuarios"), where("Correo", "==", usr.email));
-                        let nombreUsuario;
+                        const ventas = parseInt(productData.Ventas) + item.Cantidad;
                         historial.push({
                             Nombre: item.Nombre,
-                            Precio: item.Precio,
+                            Precio: parseFloat(item.Precio),
                             Link: item.Link,
-                            Cantidad: item.Cantidad,
+                            Cantidad: parseInt(item.Cantidad),
                             Fecha: fecha
                         });
                         cantidadproductos += item.Cantidad;
-                        querySnapshot.forEach((doc) => {
-                            const user = doc.data();
-                            if(user.email === usr.Correo){
-                                nombreUsuario = user.Usuario;
-                                candidadActual = user.Ventas;
-                                ingresos = user.Ingresos;
-                            }
-
-                        });
+                        candidadActual = parseInt(querySnapshot.data().Ventas);
+                        ingresos = parseFloat(querySnapshot.data().Ingresos);
                         try{
+                            console.log(nombreUsuario);
                             if (newStock >= 0) {
-                                await updateDoc(doc(db, 'Productos', productId), { Cantidad: newStock, Ventas: ventas });
+                                await updateDoc(doc(db, 'Productos', productId), { Cantidad: parseInt(newStock), Ventas: parseInt(ventas) });
                             }
                                 const docRef = await addDoc(collection(db, 'Ventas'), {
                                     Producto: item.Nombre,
-                                    Cantidad: item.Cantidad,
+                                    Cantidad: parseInt(item.Cantidad),
                                     Usuario: nombreUsuario,
                                     Fecha: fecha
                             });
@@ -213,8 +208,6 @@ async function ComprarCarrito() {
                         console.log('No se encontró el producto en la base de datos');
                     }
                 });
-                
-    console.log(historial);
                 LimpiarCarrito();
             }
         }
