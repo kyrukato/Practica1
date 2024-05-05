@@ -27,7 +27,9 @@ const auth = getAuth(app);
 let usuarios = [];
 let Nombres = [];
 let Cantidades = [];
-let cantidadTabla = 5;
+let Nombres2 = [];
+let Cantidades2 = [];
+let cantidadTabla = 10;
 let cantidadGrafica = 5;
 window.onload = async function(){
     // Llamar a la función para cargar los productos al cargar la página    
@@ -53,7 +55,6 @@ async function CargarProductos(){
     try{
         const querySnapshot = await getDocs(usuariosCollection);
         querySnapshot.forEach((item) => {
-            console.log(item);
             const prod = item.data();
             if(prod.Usuario !== "admin"){
                 let producto ={
@@ -71,7 +72,15 @@ async function CargarProductos(){
             Nombres.push(elemnto.Usuario);
             Cantidades.push(elemnto.Productos);
         });
-        LlenarTabla(top10);
+        LlenarTabla(top10,1);
+        usuarios.sort((a,b) => a.Productos - b.Productos);
+        const menores10 = usuarios.slice(0,cantidadTabla);
+        const menores5 = usuarios.slice(0,cantidadGrafica);
+        menores5.forEach((elemnto) =>{
+            Nombres2.push(elemnto.Usuario);
+            Cantidades2.push(elemnto.Productos);
+        });
+        LlenarTabla(menores10,2);
     }
     catch(error){
         console.log(error);
@@ -105,10 +114,39 @@ async function CargarProductos(){
     catch(error){
         console.log(error);
     }
+    try{
+        const ctx = document.getElementById('myChart2').getContext('2d');
+        const data = {
+            labels: Nombres2,
+            datasets: [{
+                label: 'Ventas',
+                data: Cantidades2,
+                backgroundColor: '#A58F3E',
+                borderColor: '#A58F3E',
+                borderWidth: 1
+            }]
+        };
+
+        // Crear la instancia del gráfico
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: data,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+    catch(error){
+        console.log(error);
+    }
 }
 
-function LlenarTabla(arreglo){
-    const cuerpoTabla = document.getElementById("cuerpotabla");
+function LlenarTabla(arreglo,tabla){
+    const cuerpoTabla = document.getElementById("cuerpotabla"+tabla);
         arreglo.forEach(item =>{
             const fila = document.createElement("tr");
 

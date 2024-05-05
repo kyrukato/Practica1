@@ -103,7 +103,7 @@ export const loginUser = async (email, password, verificacion,status) => {
         console.log("Inicio de sesión:", userCredential.user.email);
         alert("Inicio de sesión correcto");
           // Redirige al usuario a la página de productos
-        window.location.replace("/Carrito/inicio.html");
+        window.location.replace("/Carrito/inicio.html?index=1");
           // Llama a la función para cargar el carrito del usuario
         }
         else{

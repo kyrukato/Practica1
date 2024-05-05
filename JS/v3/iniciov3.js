@@ -26,7 +26,13 @@ const productosCollection = collection(db, 'Productos');
 const buscar = document.getElementById("buscar");
 const list = document.getElementById("prod");
 const auth = getAuth(app);
-let nombreProducto ="";
+const parametro = new URLSearchParams(window.location.search);
+const siguiente = document.getElementById("btnsiguiente");
+const anterior = document.getElementById("btnanterior");
+let indice = parseInt(parametro.get('index'));
+let min = 0;
+let max = 0;
+let aux = 0;
 let listaProductos = [];
 // Función para cargar los productos desde Firestore y mostrarlos en la página
 
@@ -35,8 +41,8 @@ window.onload = async function(){
     
     onAuthStateChanged(auth, async (user) => {
         if (user) {
-            
-            
+            max = indice * 3;
+            min = max - 3;
             cargarProductos();
             const usr = auth.currentUser;
             const userID = usr.uid;
@@ -56,42 +62,47 @@ async function cargarProductos() {
         let columna = 1;
         querySnapshot.forEach((doc) => {
             const producto = doc.data();
-            if(producto.Status === "Activo"){
-                const productCard = `
-                <div class="grupo" id="grupo__producto" style="grid-column: ${columna};">
-                    <div class="imagen" id="imagen">
-                        <img src="${producto.Link}" alt="${producto.Nombre}" class="logo2">
+                if(producto.Status === "Activo"){
+                    if((aux >= min) && (aux < max)){
+                        const productCard = `
+                    <div class="grupo" id="grupo__producto" style="grid-column: ${columna};">
+                        <div class="imagen" id="imagen">
+                            <img src="${producto.Link}" alt="${producto.Nombre}" class="logo2">
+                        </div>
+                        <button type="button" class="btn btn_prod"  name="${producto.Nombre}">${producto.Nombre}</button>
+                        <p class="info_articulo">$${producto.Precio} <i class="link_carrito link fa-solid fa-cart-shopping ${producto.Precio} ${producto.Link}" id="${producto.Nombre}" ></i> </p>
+                        
                     </div>
-                    <button type="button" class="btn btn_prod"  name="${producto.Nombre}">${producto.Nombre}</button>
-                    <p class="info_articulo">$${producto.Precio} <i class="link_carrito link fa-solid fa-cart-shopping ${producto.Precio} ${producto.Link}" id="${producto.Nombre}" ></i> </p>
+                    `;
+                    document.getElementById("contenedor").innerHTML += productCard;
+                    const opc = `
+                    <option value="${producto.Nombre}" id="${producto.Link}" ></option>
+                    `;
+                    document.getElementById("lista").innerHTML += opc;
+                    columna++;
+                    if(columna>3){
+                        columna = 1;
+                    }
                     
-                </div>
-                `;
-                document.getElementById("contenedor").innerHTML += productCard;
-                const opc = `
-                <option value="${producto.Nombre}" id="${producto.Link}" ></option>
-                `;
-                document.getElementById("lista").innerHTML += opc;
-                columna++;
-                if(columna>3){
-                    columna = 1;
+                    let btnprod = document.querySelectorAll(".btn")
+                    btnprod.forEach(btn => {
+                        btn.addEventListener("click", (a) =>{
+                            setCookie("p",a.target.name,10);
+                            window.location.replace("/Carrito/productov3.html");
+                        });
+                    });
+                    
+                    let carrito = document.querySelectorAll(".link_carrito");
+                    carrito.forEach(link => {
+                        link.addEventListener("click", (e) =>{
+                            AgregarProducto(e.target.id, e.target.classList[4], e.target.classList[5]);
+                            alert("Producto agregado al carrito");
+                        });
+                    });
                 }
-                
-                let btnprod = document.querySelectorAll(".btn")
-                btnprod.forEach(btn => {
-                    btn.addEventListener("click", (a) =>{
-                        setCookie("p",a.target.name,10);
-                        window.location.replace("/Carrito/productov3.html");
-                    });
-                });
-                
-                let carrito = document.querySelectorAll(".link_carrito");
-                carrito.forEach(link => {
-                    link.addEventListener("click", (e) =>{
-                        AgregarProducto(e.target.id, e.target.classList[4], e.target.classList[5]);
-                    });
-                });
+                aux++;
             }
+            
         });
     } catch (error) {
         console.error("Error al cargar los productos:", error);
@@ -156,3 +167,18 @@ export function AgregarProducto(nombre,precio,imagenprod){
         console.log(error);
     }
 }
+
+siguiente.addEventListener("click", () =>{
+    indice ++;
+    window.location.replace("/Carrito/inicio.html?index="+indice);
+});
+
+anterior.addEventListener("click", () =>{
+    indice --;
+    if(indice >= 1){
+        window.location.replace("/Carrito/inicio.html?index="+indice);
+    }
+    else{
+        alert("No hay productos por mostrar");
+    }
+});

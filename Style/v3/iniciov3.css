@@ -1,0 +1,110 @@
+.iconos{
+    text-align: right;
+    float: right;
+    padding: 10px;
+}
+
+.imagen{
+    text-align: center;
+}
+
+
+
+.grupo{
+    display: block;
+    background: #9B906F;
+    margin: 5px;
+    border-radius: 10px;
+}
+
+.logo2{
+    position: relative;
+    width: 30%;
+    margin: 5PX;
+}
+
+.logo2:hover{
+    width: 35%;
+}
+
+.prod{
+    width: 50%;
+}
+
+.buscador{
+    background: #6F5B40;
+    width: 60%;
+    border-radius: 10px;
+}
+
+.contenedor{
+    display: grid;
+    background: #B7883E;
+    margin: 10px;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.link_carrito{
+    color: black;
+    float: right;
+    margin-right: 20px;
+    cursor: pointer;
+    width: 20px;
+}
+
+.info_articulo{
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 30px;
+    color: black;
+}
+
+.sup{
+    margin: 15px;
+    text-align: center;
+}
+
+.buscar__lupita{
+    position: relative;
+    z-index: 100;
+    cursor: pointer;
+    width: 18px;
+}
+
+.item{
+    color: white;
+    text-decoration-color: white;
+}
+
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+
+button{
+    background: #9B906F;
+    border: none;
+    cursor: pointer;
+    font-size: 30px;
+    font-family: roboto;
+}
+
+button:hover {
+    font-size: 35px;
+}
+
+.botones{
+    text-align: center;
+}
+
+.boton{
+    background: #B7883E;
+    font-family: roboto;
+    font-size: 30px;
+    border-radius: 5px;
+    margin: 10px;
+}
