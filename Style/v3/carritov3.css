@@ -24,6 +24,7 @@
     border-radius: 15px;
     text-align: center;
     margin: 10px;
+    font-size: 30px;
 }
 
 .boton{
@@ -33,11 +34,13 @@
 .btn_aceptar, .btn_cancelar{
     background: #EFE2BC;
     margin: 5px;
+    font-size: 30px;
+    cursor: pointer;
 }
 
 .imagen_producto{
     position: relative;
-    width: 80%;
+    width: 90%;
     margin: 10px;
     border-radius: 10px;
     grid-column: 1;
@@ -53,6 +56,7 @@
     margin: 10px;
     border-radius: 10px;
     grid-column: 1;
+    font-size: 35px;
 }
 
 .boton2{
@@ -66,14 +70,17 @@
 
 .c{
     background: #DEC56E;
+    font-size: 30px;
 }
 
 .subt{
     background: #DEC56E;
+    font-size: 30px;
 }
 
 .historial{
     text-decoration: none;
+    font-size: 25px;
     color: black;
 }
 

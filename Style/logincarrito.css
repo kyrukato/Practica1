@@ -8,6 +8,7 @@
     gap: 20px;
 }
 
+
 main{
     max-width: 800px;
     width: 90%;
@@ -22,6 +23,7 @@ main{
 
 a{
     color: #1C1600;
+    font-size: 25px;
 }
 
 .formulario__grupo{
@@ -31,7 +33,7 @@ a{
 
 .formulario__label{
     display: block;
-    font-size:24px;
+    font-size: 40px;
     padding: 10px;
     cursor: pointer;
 }
@@ -42,9 +44,9 @@ a{
 
 .formulario__btn{
     background: #D7CAA5;
-    width: 158px;
-    height: 53px;
     border-radius: 15px;
+    font-size: 35px;
+    margin-right: 15px;
 }
 
 .formulario__input{
@@ -55,6 +57,7 @@ a{
     line-height: 45px;
     padding: 0 40px 0 10px;
     transition: .3s ease all;
+    font-size: 40px;
 }
 
 .formulario__input:focus{

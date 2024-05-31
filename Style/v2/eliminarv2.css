@@ -12,6 +12,12 @@ main{
     width: 90%;
     margin: auto;
     padding: 40px;
+    font-size: 35px;
+}
+
+.boton{
+    margin-top: 15px;
+    font-size: 35px;
 }
 
 .formulario{
@@ -41,6 +47,7 @@ main{
     line-height: 45px;
     padding: 0 40px 0 10px;
     transition: .3s ease all;
+    font-size: 35px;
 }
 
 .formulario__input:focus{

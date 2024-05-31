@@ -34,6 +34,7 @@ let min = 0;
 let max = 0;
 let aux = 0;
 let listaProductos = [];
+let totalproductos = 0;
 // Función para cargar los productos desde Firestore y mostrarlos en la página
 
 window.onload = async function(){
@@ -63,6 +64,7 @@ async function cargarProductos() {
         querySnapshot.forEach((doc) => {
             const producto = doc.data();
                 if(producto.Status === "Activo"){
+                    totalproductos ++;
                     if((aux >= min) && (aux < max)){
                         const productCard = `
                     <div class="grupo" id="grupo__producto" style="grid-column: ${columna};">
@@ -70,6 +72,7 @@ async function cargarProductos() {
                             <img src="${producto.Link}" alt="${producto.Nombre}" class="logo2">
                         </div>
                         <button type="button" class="btn btn_prod"  name="${producto.Nombre}">${producto.Nombre}</button>
+                        <p class="info_articulo">${producto.Descripcion}</p>
                         <p class="info_articulo">$${producto.Precio} <i class="link_carrito link fa-solid fa-cart-shopping ${producto.Precio} ${producto.Link}" id="${producto.Nombre}" ></i> </p>
                         
                     </div>
@@ -170,7 +173,12 @@ export function AgregarProducto(nombre,precio,imagenprod){
 
 siguiente.addEventListener("click", () =>{
     indice ++;
-    window.location.replace("/Carrito/inicio.html?index="+indice);
+    if(indice < (parseInt(totalproductos / 3) + 1)){
+        window.location.replace("/Carrito/inicio.html?index="+indice);
+    }
+    else{
+        alert("No hay más productos por mostrar");
+    }
 });
 
 anterior.addEventListener("click", () =>{

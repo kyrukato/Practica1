@@ -3,7 +3,9 @@ ul, ol{
     padding: 0px;
 }
 
-
+.espacio{
+    margin-bottom: 37px;
+}
 
 .nav li a{
     background: #A58F3E;
@@ -16,6 +18,7 @@ ul, ol{
 /*Aplicamos los estilos sólo a las listas que estén directamente dentro del nav*/
 .nav > li{
     float: left;
+    font-size: 35px;
 }
 
 /*Sombreado cuando el cursor se pone sobre el item*/
@@ -86,6 +89,11 @@ main{
     line-height: 45px;
     padding: 0 40px 0 10px;
     transition: .3s ease all;
+    font-size: 35px;
+}
+
+label{
+    font-size: 30px;
 }
 
 .formulario__input:focus{
@@ -154,6 +162,8 @@ main{
 
 .formulario__btn{
     background: #D7CAA5;
+    font-size: 35px;
+    margin: 10px;
 }
 
 .barra{

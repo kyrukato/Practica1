@@ -8,7 +8,9 @@
     text-align: center;
 }
 
-
+.titulo{
+    font-size: 60px;
+}
 
 .grupo{
     display: block;
@@ -19,12 +21,12 @@
 
 .logo2{
     position: relative;
-    width: 30%;
+    width: 40%;
     margin: 5PX;
 }
 
 .logo2:hover{
-    width: 35%;
+    width: 45%;
 }
 
 .prod{
@@ -35,6 +37,7 @@
     background: #6F5B40;
     width: 60%;
     border-radius: 10px;
+    font-size: 30px;
 }
 
 .contenedor{
@@ -57,13 +60,14 @@
 .info_articulo{
     margin-left: 10px;
     margin-right: 10px;
-    font-size: 30px;
+    font-size: 40px;
     color: black;
 }
 
 .sup{
     margin: 15px;
     text-align: center;
+    font-size: 30px;
 }
 
 .buscar__lupita{
@@ -95,6 +99,14 @@ button{
 
 button:hover {
     font-size: 35px;
+}
+
+.btn{
+    font-size: 40px;
+}
+
+.btn:hover{
+    font-size: 45px;
 }
 
 .botones{

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/Style/diseno.css">
+    <link rel="stylesheet" href="/Style/v3/reporteventas.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href= "https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+    <nav class="navbar" id="barranav">
+        <div class="container">
+            <a href="/Carrito/inicio.html?index=1"><img src="/Imagenes/logo.jpg" alt="Logo" class="logo" ></a>
+            <span class="titulo" id="titulo">REPORTE DE VENTAS</span>
+            <div class="iconos">
+                <a class="carrito" href="/Carrito/carritoV3.html"><i class="carrito fa-solid fa-cart-shopping"></i></a>
+                <a class="carrito" href="/Carrito/usuariov3.html"><i class="carrito fa-regular fa-user"></i></a>
+                <a class="carrito" href="/Carrito/configv3.html"><i class="carrito fa-solid fa-gear"></i></a>
+            </div>
+        </div>
+    </nav>
+    <nav class="opciones">
+        <label for="opc">VENTAS POR DIA</label>
+        <input type="radio" name="opc" id="" value="dia">
+        <label for="opc">VENTAS POR SEMANA</label>
+        <input type="radio" name="opc" id="" value="semana">
+        <label for="opc">VENTAS POR MES</label>
+        <input type="radio" name="opc" id="" value="mes">
+        <label for="opc">VENTAS POR PERIODO</label>
+        <input type="radio" name="opc" id="" value="periodo">
+        <button type="button" id="seleccionar">SELECCIONAR</button>
+    </nav>
+    <div class="entradas">
+        <label for="fecha1" class="fecha1" id="label">FECHA DE INICIO: </label>
+        <input type="date" class="fecha1" id="dia" name="fecha1">
+        <input type="week" class="fecha1" id="semana" name="fecha1">
+        <input type="month" name="fecha1" id="mes" class="fecha1">
+        <label for="fecha2" class="fecha2" id="label2">FECHA DE FINALIZACIÓN: </label>
+        <input type="date" class="fecha2" id="dia2" name="fecha2">
+        <button type="button" id="mostrar" class="fecha1">BUSCAR</button>
+    </div>
+    <form action="" class="contenedor" id="contenedor">
+        <table id="tabla" class="tabla">
+            <thead>
+                <tr>
+                    <th>NOMBRE</th>
+                    <th>UNIDADES VENDIDAS</th>
+                    <th>FECHA</th>
+                    <th>USUARIO</th>
+                </tr>
+            </thead>
+            <tbody id="cuerpotabla" class="cuerpotabla">
+
+            </tbody>
+        </table>
+
+    </form>
+    <script src="/JS/v3/reporteventas.js" type="module"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
+</body>
+</html>

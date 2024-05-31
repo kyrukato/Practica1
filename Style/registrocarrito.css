@@ -25,6 +25,11 @@ main{
     font-weight: 700;
     padding: 10px;
     cursor: pointer;
+    font-size: 35px;
+}
+
+.espacio{
+    margin-bottom: 40px;
 }
 
 .formulario__grupo-input{
@@ -36,11 +41,12 @@ main{
     width: 100%;
     background: #9B906F;
     border: 3px solid transparent;
-    border-radius: 3px;
+    border-radius: 5px;
     height: 45px;
     line-height: 45px;
     padding: 0 40px 0 10px;
     transition: .3s ease all;
+    font-size: 35px;
 }
 
 .formulario__input:focus{
@@ -109,5 +115,8 @@ main{
 
 .formulario__btn{
     background: #D7CAA5;
+    font-size: 30px;
+    border-radius: 5px;
+    margin-right: 15px;
 }
 

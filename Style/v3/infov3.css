@@ -22,11 +22,14 @@
     padding: 10px;
     background: #9B906F;
     resize: none;
+    font-size: 35px;
 }
 
 .formulario__btn{
     background: #D7CAA5;
     border-radius: 10px;
+    font-size: 30px;
+    margin: 15px;
 }
 
 .comentario:focus{
@@ -40,6 +43,11 @@
     font-weight: 700;
     padding: 10px;
     cursor: pointer;
+    font-size: 35px;
+}
+
+main{
+    flex: 1;
 }
 
 
@@ -49,5 +57,12 @@ footer{
     width: 100%;
     background-color: #554500; 
     color: white;
-    text-align: center;
+    text-align: center;;
+    font-size: 20px;
+}
+
+.contenedor{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }

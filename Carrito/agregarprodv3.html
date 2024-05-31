@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/Style/diseno.css">
-    <link rel="stylesheet" href="/Style//v2/agprod.css">
+    <link rel="stylesheet" href="/Style/v2/eliminarv2.css">
+    <link rel="stylesheet" href="/Style/v3/agregarprod.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <title>Agregar producto</title>
 </head>
@@ -21,45 +22,50 @@
             </div>
         </div>
     </nav>
-    <form action="" id="formulario" class="formulario">
-        
-    <input type="file" id="fileInput" class="fileInput">
-    <div id="imagenProducto"></div>
-    <div class="formulario__grupo" id="grupo__nombre">
-        <label for="nombre" class="formulario__label">NOMBRE</label>
-        <div class="formulario__grupo-input">
-            <input type="text" class="formulario__input" name="nombre" id="nombre" >
-            <i class="formulario__validacion-estado fa-regular fa-circle-xmark"></i>
-        </div>
-        <p class="formulario__input-error">NO DEJAR ESTE ESPACIO VACIO</p>
-    </div>
-    <div class="formulario__grupo" id="grupo__des">
-        <label for="des" class="formulario__label">DESCRIPCIÓN</label>
-        <div class="formulario__grupo-input">
-            <input type="text" class="formulario__input" name="des" id="des" >
-            <i class="formulario__validacion-estado fa-regular fa-circle-xmark"></i>
-        </div>
-        <p class="formulario__input-error">NO DEJAR ESTE ESPACIO VACIO</p>
-    </div>
-    <div class="formulario__grupo" id="grupo__cantidad">
-        <label for="cantidad" class="formulario__label">CANTIDAD</label>
-        <div class="formulario__grupo-input">
-            <input type="text" class="formulario__input" name="cantidad" id="cantidad" >
-            <i class="formulario__validacion-estado fa-regular fa-circle-xmark"></i>
-        </div>
-        <p class="formulario__input-error">SOLO SE ACEPTAN NÚMEROS MAYORES O IGUALES A 0</p>
-    </div>
-    <div class="formulario__grupo" id="grupo__precio">
-        <label for="precio" class="formulario__label">PRECIO</label>
-        <div class="formulario__grupo-input">
-            <input type="text" class="formulario__input" name="precio" id="precio" >
-            <i class="formulario__validacion-estado fa-regular fa-circle-xmark"></i>
-        </div>
-        <p class="formulario__input-error">SOLO SE ACEPTAN NÚMEROS MAYORES O IGUALES A 0</p>
-    </div>
+
     
-    <button type="button" class="boton" id="boton">Subir Producto</button>
-    </form>
+    <main>
+        <form action="" class="formulario" id="formulario">
+            <div class="formulario__grupo" id="grupo__usuario">
+                <label for="nombre" class="formulario__label">NOMBRE</label>
+                <div class="formulario__grupo-input">
+                    <input type="text" class="formulario__input" name="nombre" id="nombre" >
+                </div>
+            </div>
+
+            <div class="formulario__grupo" id="grupo__nombr">
+                <label for="cantidad" class="formulario__label">CANTIDAD</label>
+                <div class="formulario__grupo-input">
+                    <input type="text" class="formulario__input" name="cantidad" id="cantidad"  >
+                </div>
+                
+            </div>
+
+            <div class="formulario__grupo" id="grupo__password2">
+                <label for="precio" class="formulario__label">PRECIO</label>
+                <div class="formulario__grupo-input">
+                    <input type="text" class="formulario__input" name="precio" id="precio" >
+                </div>
+                
+            </div>
+
+            <div>
+                <label for="password2" class="formulario__label">IMAGEN</label>
+                <input type="file" id="fileInput" class="fileInput">
+            </div>
+
+            
+        </form>
+        <div class="formulario__grupo" id="grupo__password">
+            <label for="Descripcion" class="formulario__label">DESCRIPCION</label>
+            <div class="formulario__grupo-input">
+                <textarea name="Descripcion" id="Descripcion" cols="30" rows="10" class="formulario__input" ></textarea>
+            </div>
+            
+        </div>
+        <button type="button" id="boton" class="boton" disabled>AGREGAR</button>
+    </main>
+
     <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
     <script src="/JS/v3/agregarprod.js" type="module"></script>

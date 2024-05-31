@@ -1,0 +1,17 @@
+label{
+    font-size: 35px;
+}
+
+.fileInput{
+    font-size: 15px;
+}
+
+.formulario__input{
+    font-size: 30px;
+    height: 55px;
+}
+
+.boton{
+    margin-top: 20px;
+    font-size: 35px;
+}
